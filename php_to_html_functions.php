@@ -35,7 +35,7 @@
         return "<a href='$link' id='$id' class='$class' style='$style'>$contents</a>";
     }
 
-    if (!isset($elem_auth) || !$elem_auth) {
-        header("Location: index.html");
+    if (!isset($elem_auth)) {
+        header("Location: index.php");
     }
 ?>
