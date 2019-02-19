@@ -13,8 +13,7 @@
     <?php
         if (isset($_GET["error"])) {
             $error = $_GET["error"];
-            $elem_auth = true;
-            include('php_to_html_functions.php');
+            include('inc/php_to_html_functions.php');
             if ($error == 1) {
                 echo p("Password is incorrect");
             }

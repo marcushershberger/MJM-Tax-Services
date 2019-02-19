@@ -1,9 +1,6 @@
 <?php
-    $sec_auth = true; // Control variable that prevents users from accessing 'display_functions.php' directly.
-    $conn_auth = true; // Control variable that prevents users from accessing 'conn.php' directly;
-
-    include('conn.php'); // Includes database connection info.
-    include('display_functions.php'); // Includes functions that return HTML content for display.
+    include('inc/conn.php'); // Includes database connection info.
+    include('inc/display_functions.php'); // Includes functions that return HTML content for display.
 
     $username = $_POST["user"]; // Information from the form on 'login.php'
     $pass = $_POST["pass"];
