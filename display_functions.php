@@ -1,8 +1,7 @@
 <?php
-    // This page contains functions for returning pages to users. To use these functions, the 'include(...)' function call must be after the declaration and assignment of $sec_auth to true.
+    // This page contains functions for returning pages to users.
     
-    $elem_auth = true;
-    include('php_to_html_functions.php');
+    include('inc/php_to_html_functions.php');
     
     // Function that returns a page for regular users.
     function userPage() {
