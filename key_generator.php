@@ -7,4 +7,3 @@
         $randString .= $chars[$index];
     }
     echo $randString;
-?>
