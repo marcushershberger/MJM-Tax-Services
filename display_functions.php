@@ -12,8 +12,3 @@
     function adminPage() {
         return p("You are an admin");
     }
-
-    // Uses a control variable to redirect the user if the user tries to access this page directly.
-    if (!isset($sec_auth)) {
-        header("Location: index.php");
-    }
