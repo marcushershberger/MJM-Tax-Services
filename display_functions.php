@@ -18,4 +18,3 @@
     if (!isset($sec_auth)) {
         header("Location: index.php");
     }
-?>
