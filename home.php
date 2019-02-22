@@ -36,4 +36,3 @@
         // If user does not exist.
         header("Location: login.php?error=2");
     }
-?>
