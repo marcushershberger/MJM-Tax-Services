@@ -8,5 +8,4 @@
     $db_username = "mhershberger";
     $db_password = "2277927";
     $db_name = "SP_DB";
-    $db_host = "levi.cis.indwes.edu"
-?>
+    $db_host = "levi.cis.indwes.edu";
