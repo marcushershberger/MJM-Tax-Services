@@ -33,7 +33,3 @@
     function a($contents, $link, $class = ' ', $id = ' ', $style = ' ') {
         return "<a href='$link' id='$id' class='$class' style='$style'>$contents</a>";
     }
-
-    if (!isset($elem_auth)) {
-        header("Location: index.php");
-    }
