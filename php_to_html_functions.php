@@ -4,7 +4,6 @@
     // Each function can take 4 arguments (except a, which has a second mandatory argument, $link).
     // element($type, $contents, $class, $id, $style)
     // $class, $id, and $style are optional arguments.
-    // This page requires $elem_auth to be declared and assigned a value of true;
 
     // <p> tag
     function p($contents, $class = ' ', $id = ' ', $style = ' ') {
@@ -34,8 +33,3 @@
     function a($contents, $link, $class = ' ', $id = ' ', $style = ' ') {
         return "<a href='$link' id='$id' class='$class' style='$style'>$contents</a>";
     }
-
-    if (!isset($elem_auth)) {
-        header("Location: index.php");
-    }
-?>
