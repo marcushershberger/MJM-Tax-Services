@@ -23,6 +23,7 @@
         <input type="submit" value="Sign Up">
     </form>
     <?php
+	// Test for git
         if (isset($_GET["error"])) {
             $error = $_GET["error"];
             $elem_auth = true;
