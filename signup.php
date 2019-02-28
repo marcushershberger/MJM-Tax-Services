@@ -1,3 +1,20 @@
+<?php
+    include('inc/conn.php');
+    include('inc/php_to_html_functions.php');
+    $connection = new mysqli($db_host,$db_username, $db_password, $db_name);
+    
+    if ($conn->connect_error) {
+        die("Connection failed.";
+    }
+    
+    $sql = "SELECT id, question FROM security_questions";
+    $result = $connection->query($sql);
+    
+    $questions = [];
+    while ($row = $result->fetch_assoc()) {
+        $questions[] = array("id"=>$row["id"], "question"=>$row["question"]);
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,14 +37,32 @@
         </select><br>
         <input type="number" name="zip" placeholder="ZIP"><br>
         <input type="text" name="key" placeholder="Registration Key"><br>
+	<p>Answer 3 security questions (answers are not case sensitive)</p><br>
+	<?php
+        echo "<select>";
+        echo "<option value='' disabled selected>Select a security question...</option>";
+        for ($i = 0; $i < count($questions); $i++) {
+            echo option($questions[$i]["question"], $questions[$i]["id"]);
+        }
+	?>
+	<input type="text" name="sec_ans_1" placeholder="Answer"><br>
+	<?php
+        echo "<select>";
+        echo "<option value='' disabled selected>Select a security question...</option>";
+        for ($i = 0; $i < count($questions); $i++) {
+            echo option($questions[$i]["question"], $questions[$i]["id"]);
+        }
+	?>
+	<input type="text" name="sec_ans_2" placeholder="Answer"><br>
+	<?php
+        echo "<select>";
+        echo "<option value='' disabled selected>Select a security question...</option>";
+        for ($i = 0; $i < count($questions); $i++) {
+            echo option($questions[$i]["question"], $questions[$i]["id"]);
+        }
+	?>
+	<input type="text" name="sec_ans_3" placeholder="Answer"><br>
         <input type="submit" value="Sign Up">
     </form>
-    <?php
-        if (isset($_GET["error"])) {
-            $error = $_GET["error"];
-            $elem_auth = true;
-            include('php_to_html_functions.php');
-        }
-    ?>
 </body>
 </html>
