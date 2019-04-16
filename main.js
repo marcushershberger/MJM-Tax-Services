@@ -19,3 +19,40 @@ function removeSelections(val, id) {
         }
     }
 }
+
+function comparePassword() {
+    var pass = document.getElementById("pass").value;
+    var passVerif = document.getElementById("passVerif").value;
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    //Password must contain: 1 lowercase, 1 uppercase, 1 number, one special character, must be 8 characters long
+
+    if (strongRegex.test(pass)) {
+        document.getElementById("pass").style.borderColor = "green";
+        document.getElementById("passVerif").style.borderColor = "green";
+        if (pass == passVerif) {
+            document.getElementById("pass").style.borderColor = "green";
+            document.getElementById("passVerif").style.borderColor = "green";
+
+        } else {
+            document.getElementById("pass").style.borderColor = "red";
+            document.getElementById("passVerif").style.borderColor = "red";
+        }
+    } else {
+        document.getElementById("pass").style.borderColor = "red";
+        document.getElementById("passVerif").style.borderColor = "red";
+    }
+}
+
+//TODO: Not working.
+/*function showPass() {
+    var passwordInput = document.getElementById('pass').value;
+
+    if (passwordInput.type == 'password'){
+        passwordInput.type='text';
+
+    }
+    else{
+        passwordInput.type='password';
+    }
+    }
+}*/
