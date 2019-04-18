@@ -1,6 +1,7 @@
 <?php
     // Database information
-    $db_username = "marcus";
-    $db_password = "hersh";
+    $db_username = "tyler";
+    $db_password = "snodderly";
     $db_name = "SP";
     $db_host = "localhost";
+?>

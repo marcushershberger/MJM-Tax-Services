@@ -5,10 +5,10 @@
     <title>MJM</title>
 </head>
 <body>
-    <form action="home.php" method="post">
+    <form action="db/auth_user.php" method="post">
         <input type="text" name="user" placeholder="Username"><br>
         <input type="password" name="pass" placeholder="Password"><br>
-        <input type="submit" value="Log In">
+        <input type="submit" id="submit" value="Log In">
     </form>
     <?php
         if (isset($_GET["error"])) {
@@ -19,6 +19,9 @@
             }
             elseif ($error == 2) {
                 echo p("That user does not exist");
+            }
+            elseif ($error = 99) {
+                echo p("Username or password incorrect");
             }
         }
     ?>

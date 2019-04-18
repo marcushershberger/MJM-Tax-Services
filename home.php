@@ -2,8 +2,8 @@
     include('inc/conn.php'); // Includes database connection info.
     include('inc/display_functions.php'); // Includes functions that return HTML content for display.
 
-    $username = $_POST["user"]; // Information from the form on 'login.php'
-    $pass = $_POST["pass"];
+    //$username = $_POST["user"]; // Information from the form on 'login.php'
+    //$pass = $_POST["pass"];
 
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
@@ -12,7 +12,7 @@
         echo "Failed to connect: " . mysqli_connect_errno();
     }
 
-    $sql = "SELECT pass, admin FROM users_test WHERE username = '$username';"; // SQL query to execute.
+    /*$sql = "SELECT pass, admin FROM users_test WHERE username = '$username';"; // SQL query to execute.
     $result = $conn->query($sql); // Execute SQL query.
     if (!(mysqli_num_rows($result) == 0)) {
         // If user exists
@@ -35,4 +35,4 @@
     else {
         // If user does not exist.
         header("Location: login.php?error=2");
-    }
+    }*/
