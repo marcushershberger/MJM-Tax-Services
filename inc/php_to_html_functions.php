@@ -33,4 +33,7 @@
     function a($contents, $link, $class = ' ', $id = ' ', $style = ' ') {
         return "<a href='$link' id='$id' class='$class' style='$style'>$contents</a>";
     }
-?>
+    
+    function option($contents, $value, $class = ' ', $id = ' ', $style = ' ') {
+        return "<option id='$id' class='$class' style='$style' value='$value'>$contents</option>";
+    }

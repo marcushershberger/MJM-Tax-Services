@@ -3,9 +3,13 @@
     include('inc/php_to_html_functions.php');
     $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
     
+
+
     if ($connection->connect_error) {
         die("Connection failed.");
     }
+    
+    $registration_key = isset($_GET["key"]) ? $_GET["key"] : "";
     
     $sql = "SELECT id, question FROM security_questions";
     $result = $connection->query($sql);
@@ -22,7 +26,7 @@
         <title>MJM</title>
     </head>
     <body onload="populateStateDropdown()">
-        <form action="store_user.php" method="post" id="infoForm">
+        <form action="db/store_user.php" method="post" id="infoForm">
             <input type="text" name="fname" placeholder="First Name"><br>
             <input type="text" name="lname" placeholder="Last Name"><br>
             <input type="text" name="user" placeholder="Username"><br>
@@ -36,10 +40,10 @@
                 <option value="" disabled selected>State</option>
             </select><br>
             <input type="number" name="zip" placeholder="ZIP"><br>
-            <input type="text" name="key" placeholder="Registration Key"><br>
+            <input type="text" name="key" placeholder="Registration Key" value="<?php echo $registration_key ?>" ><br>
         <p>Answer 3 security questions (answers are not case sensitive)</p><br>
         <?php
-            echo "<select  id='1' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='1' name='quest1' onchange='removeSelections(this.value, this.id)'>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
@@ -48,7 +52,7 @@
         ?>
         <input type="text" name="sec_ans_1" placeholder="Answer"><br>
         <?php
-            echo "<select  id='2' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='2' name='quest2' onchange='removeSelections(this.value, this.id)'>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
@@ -57,7 +61,7 @@
         ?>
         <input type="text" name="sec_ans_2" placeholder="Answer"><br>
         <?php
-            echo "<select  id='3' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='3' name='quest3' onchange='removeSelections(this.value, this.id)'>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
