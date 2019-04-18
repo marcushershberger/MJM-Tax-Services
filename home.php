@@ -1,5 +1,5 @@
 <?php
-    include('inc/conn.php'); // Includes database connection info.
+    /*include('inc/conn.php'); // Includes database connection info.
     include('inc/display_functions.php'); // Includes functions that return HTML content for display.
 
     //$username = $_POST["user"]; // Information from the form on 'login.php'

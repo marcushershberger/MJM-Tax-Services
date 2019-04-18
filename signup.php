@@ -3,11 +3,13 @@
     include('inc/php_to_html_functions.php');
     $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
     
+
+
     if ($connection->connect_error) {
         die("Connection failed.");
     }
     
-    $registration_key = isset($_GET["key"]) ? $_GET["key"] : "a";
+    $registration_key = isset($_GET["key"]) ? $_GET["key"] : "";
     
     $sql = "SELECT id, question FROM security_questions";
     $result = $connection->query($sql);
@@ -44,7 +46,7 @@
             <input type="text" name="key" placeholder="Registration Key" value="<?php echo $registration_key ?>" required><br>
         <p>Answer 3 security questions (answers are not case sensitive)</p><br>
         <?php
-            echo "<select  id='1' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='1' name='quest1' onchange='removeSelections(this.value, this.id)'>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
@@ -53,7 +55,7 @@
         ?>
         <input type="text" name="sec_ans_1" placeholder="Answer" required><br>
         <?php
-            echo "<select  id='2' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='2' name='quest2' onchange='removeSelections(this.value, this.id)'>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
@@ -62,7 +64,7 @@
         ?>
         <input type="text" name="sec_ans_2" placeholder="Answer" required><br>
         <?php
-            echo "<select  id='3' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='3' name='quest3' onchange='removeSelections(this.value, this.id)'>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
