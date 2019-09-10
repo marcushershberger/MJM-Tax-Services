@@ -9,7 +9,9 @@ function generateKeyRequest() {
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             var return_data = request.responseText;
-            document.getElementById("key").value = return_data;
+            document.getElementById("keyMsg").href = "../main/signup.php?key=" + return_data;
+            document.getElementById("keyMsg").innerHTML = "Link";
+            document.getElementById("key").innerHTML = return_data;
         }
     }
     
