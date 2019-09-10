@@ -1,18 +1,3 @@
-<?php
-    $errorMsg = "";
-    if (isset($_GET['errorCode'])) {
-        $err = $_GET['errorCode'];
-        if ($err == 1) {
-            $errorMsg = "Key is not valid";
-        }
-        else if ($err == 2) {
-            $errorMsg = "Email is not valid";
-        }
-        else {
-            $errorMsg = "Key and Email are not valid";
-        }
-    }
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,14 +7,10 @@
     <body>
         <select id="accountSelection">
             <option value="1">User</option>
-            <!--<option value="2">Admin</option>-->
+            <option value="2">Admin</option>
         </select>
         <button onclick="generateKeyRequest()" id="generateKeyBtn">Generate</button>
-        <form action="emailInvite.php">
-            <input type="text" id="key" class="regKey"><br>
-            <input type="text" id="email" name="email" placeholder="Email"><br>
-            <p id='error'><?php echo $errorMsg; ?></p>
-            <input type="submit" value="Email Key">
-        </form>
+        <a id="keyMsg" id="regLink"></a>
+        <p id="key" class="regKey"></p>
     </body>
 </html>
