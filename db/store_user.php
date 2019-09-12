@@ -1,6 +1,6 @@
 <?php
 	include('../inc/conn.php');
-	//include('../inc/php_to_html_functions.php');
+	include('../inc/php_to_html_functions.php');
 	include('../inc/validations.php');
 
 	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
@@ -81,7 +81,13 @@
     $sqlCreateUser->execute();
     $sqlCreateUser->close();
     
-    header('Location: ../../tyler/login.php');
+    $sqlMarkUsed = $connection->prepare("UPDATE registration_keys SET used = 1 WHERE reg_key = ?");
+    $sqlMarkUsed->bind_param("s", $key);
+    $sqlMarkUsed->execute();
+    $sqlMarkUsed->close();
+    $connection->close();
+    
+    echo p("You have successfully created an account");
 	
 	
 
