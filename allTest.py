@@ -10,8 +10,8 @@ import email
 IP = '10.178.40.49/branch/MJM-Tax-Services'
 
 #Variable for email of client and password
-user_email = 'testing.mjm.services@gmail.com'
-password_email = 'pioiamrcvstfdtik'
+user_email = ''
+password_email = ''
 
 #user input to start test, every answer but no will start the test
 val = input('Would you like to start testing? ')
