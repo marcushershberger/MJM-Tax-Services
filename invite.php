@@ -40,8 +40,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </head>
     <body>
         <select id="accountSelection">
-            <option value="1">User</option>
-            <!--<option value="2">Admin</option>-->
+            <option value="1">Client</option>
+            <option value="2">Admin</option>
         </select>
         <button onclick="generateKeyRequest()" id="generateKeyBtn">Generate</button>
         <form action="emailInvite.php" method="post">
