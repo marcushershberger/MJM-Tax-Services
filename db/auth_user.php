@@ -1,6 +1,6 @@
 <?php
 	include('../inc/conn.php');
-	//include('../inc/php_to_html_functions.php');
+	include('../inc/php_to_html_functions.php');
 	include('../inc/validations.php');
 
 	$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
@@ -18,18 +18,12 @@
 	$authUser->bind_result($hash);
 	$authUser->fetch();
 	
-	if (password_verify($password, $hash)) {
+	echo ( password_verify($password, $hash) ? p("User $username successfully logged in.") : p("Incorrect username/password."));
+	/*if (password_verify($password, $hash)) {
         header("Location: ../home.php?user=$username");
         exit();
 	}
 	else {
         header('Location: ../login.php?error=99');
         exit();
-	}
-	
-	
-	
-	
-	
-
-	
+	}*/
