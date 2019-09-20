@@ -36,7 +36,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         die("Connection failed.");
     }
     
-    $sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, 0);";
+    $used = 0;
+    $sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
     $result = $connection->query($sql);
     
     if ($result) {

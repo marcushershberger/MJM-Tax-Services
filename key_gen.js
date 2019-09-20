@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 function generateKeyRequest() {
-    var type = document.getElementById("accountSelection").value;
+    var type = document.getElementById("accountSelection").value - 1;
     var object = {_type: type};
     var obj = "obj=" + JSON.stringify(object);
     var request = new XMLHttpRequest();
