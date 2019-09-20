@@ -18,12 +18,4 @@
 	$authUser->bind_result($hash);
 	$authUser->fetch();
 	
-	echo ( password_verify($password, $hash) ? p("User $username successfully logged in.") : p("Incorrect username/password."));
-	/*if (password_verify($password, $hash)) {
-        header("Location: ../home.php?user=$username");
-        exit();
-	}
-	else {
-        header('Location: ../login.php?error=99');
-        exit();
-	}*/
+	header("Location: ../". (password_verify($password, $hash) ? "home.php" : "login.php"));
