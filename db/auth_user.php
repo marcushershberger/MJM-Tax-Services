@@ -18,4 +18,4 @@
 	$authUser->bind_result($hash);
 	$authUser->fetch();
 	
-	header("Location: ../". (password_verify($password, $hash) ? "home.php" : "login.php"));
+	header("Location: ../". (password_verify($password, $hash) ? "home.php" : "login.php"));s
