@@ -20,8 +20,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     include('inc/conn.php'); // Includes database connection info.
     include('inc/display_functions.php'); // Includes functions that return HTML content for display.
 
-    //$username = $_POST["user"]; // Information from the form on 'login.php'
-    //$pass = $_POST["pass"];
+    session_start();
+    if (!isset($_SESSION['USER'])) header("Location: login.php");
 
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
