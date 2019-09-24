@@ -41,7 +41,7 @@
     }
 
     // <input> tag
-    function input($type, $name, $accept, $class = ' ', $id = ' ', $style = ' ') {
+    function input($type, $name, $accept = ' ', $class = ' ', $id = ' ', $style = ' ') {
         return "<input type='$type' name='$name' accept='$accept' class='$class' id='$id' style='$style' />";
     }
     
@@ -66,6 +66,7 @@
     }
 
     // <form> tag
+    // Submit button within form will have class of submitButton'
     function form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
-        return "<form action='$action' method='$method' id='$id' class='$class' style='$style'>$contents</form>";
+        return "<form action='$action' method='$method' id='$id' class='$class' style='$style'>$contents".input("submit", "submit", " ", "submitButton")."</form>";
     }

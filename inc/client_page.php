@@ -3,7 +3,8 @@
     echo p("Welcome Client");
     echo p("Upload a Document");
     $input = input("file", "document", "application/pdf");
-    echo form($input);
+    $uploadFile = "inc/uploadFile.php";
+    echo form($input, $uploadFile, "POST");
     $tableContents = tr(th("Files"));
     
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
