@@ -22,13 +22,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     session_start();
     if (!isset($_SESSION['USER'])) header("Location: login.php");
-
-    $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
-
-    // Make sure the database connection was successful.
-    if (mysqli_connect_errno()) {
-        echo "Failed to connect: " . mysqli_connect_errno();
+    
+?>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<?php if ($_SESSION['ACCT_TYPE'] == 1) {
+        include 'inc/client_page.php';
+    }
+    else {
+        include 'inc/admin_page.php';
     }
 
+    
 /* SESSION INFORMATION WILL RESIDE HERE */
 
+?>
+</body>
+</html>
