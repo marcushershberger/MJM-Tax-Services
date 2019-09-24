@@ -19,6 +19,7 @@
 	$authUser->fetch();
     $loggedin = password_verify($password, $hash);
     session_start();
+    session_regenerate_id();
     if ($loggedin) {
         $_SESSION['USER'] = $username;
     }
