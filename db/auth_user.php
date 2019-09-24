@@ -17,5 +17,12 @@
 	$authUser->execute();
 	$authUser->bind_result($hash);
 	$authUser->fetch();
-
-	header("Location: ../". (password_verify($password, $hash) ? "home.php" : "login.php"));
+    $loggedin = password_verify($password, $hash);
+    session_start();
+    if ($loggedin) {
+        $_SESSION['USER'] = $username;
+    }
+    else {
+        $_SESSION['USER'] = "";
+    }
+	header("Location: ../". ($loggedin ? "home.php" : "login.php"));
