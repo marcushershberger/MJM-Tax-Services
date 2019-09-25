@@ -17,6 +17,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+
     $errorMsg = "";
     if (isset($_GET['errorCode'])) {
         $err = $_GET['errorCode'];
@@ -40,13 +42,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </head>
     <body>
         <select id="accountSelection">
-            <option value="1">User</option>
-            <!--<option value="2">Admin</option>-->
+            <option value="1">Client</option>
+            <option value="2">Admin</option>
         </select>
         <button onclick="generateKeyRequest()" id="generateKeyBtn">Generate</button>
         <form action="emailInvite.php" method="post">
             <input type="text" id="key" name="key" class="regKey"><br>
             <input type="text" id="email" name="email" placeholder="Email"><br>
+            <textarea id="message" name="message" rows="10" cols="30"></textarea>
             <p id='error'><?php echo $errorMsg; ?></p>
             <input type="submit" value="Email Key" id="emailBtn">
         </form>
