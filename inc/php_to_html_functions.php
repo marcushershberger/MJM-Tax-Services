@@ -68,5 +68,5 @@
     // <form> tag
     // Submit button within form will have class of submitButton'
     function form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
-        return "<form action='$action' method='$method' id='$id' class='$class' style='$style'>$contents".input("submit", "submit", " ", "submitButton")."</form>";
+        return "<form action='$action' method='$method' id='$id' class='$class' style='$style'  enctype='multipart/form-data' >$contents".input("submit", "submit", " ", "submitButton")."</form>";
     }

@@ -2,7 +2,7 @@
     
     echo p("Welcome Client");
     echo p("Upload a Document");
-    $input = input("file", "document", "application/pdf");
+    $input = input("file", "document");
     $uploadFile = "inc/uploadFile.php";
     echo form($input, $uploadFile, "POST");
     $tableContents = tr(th("Files"));
