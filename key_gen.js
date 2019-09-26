@@ -27,7 +27,10 @@ function generateKeyRequest() {
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             var return_data = request.responseText;
+            //Auto-populating textarea for message to be edited and sent.
+            var message_data = "Hi, you have been invited to join MJM consulting... etc. Your registration key is " + request.responseText + ". You can also visit 10.178.40.49/branch/MJM-Tax-Services/signup.php?key=" + request.responseText;
             document.getElementById("key").value = return_data;
+            document.getElementById("message").value = message_data;
         }
     }
     

@@ -40,6 +40,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             elseif ($error == 2) {
                 echo p("That user does not exist");
             }
+
         }
     ?>
 </body>

@@ -38,5 +38,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     
     // Create new email message via SwiftMailer library
     $recipient = $email;
-	$message = (new Swift_Message('MJM Tax Services Invitation'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
+    $content = $_POST['message']; //Retrieving content from text-area named message
+    $message = (new Swift_Message('MJM Tax Services Invitation'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
     $result = $mailer->send($message);
