@@ -16,16 +16,15 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/    
-    include 'php_to_html_functions.php';
-    include('inc/conn.php');
-
-    echo p("Welcome Client");
-    $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
-
-    // Make sure the database connection was successful.
-    if (mysqli_connect_errno()) {
-        echo p("Failed to connect: " . mysqli_connect_errno());
-    }
-    include 'file_upload_input.php';
-    include 'user_file_list.php';
+*/ 
+    $tableContents = tr(th("Files"));
+    $sqlUploads = $conn->prepare("SELECT file_name FROM file_uploads WHERE user = ?");
+    $sqlUploads->bind_param('i', $_SESSION['USER']);
+	$sqlUploads->execute();
+	$sqlUploads->bind_result($filename);
+	while ($sqlUploads->fetch()) {
+        $cell = td($filename);
+        $row = tr($cell);
+        $tableContents .= $row;
+	}
+	echo table($tableContents);

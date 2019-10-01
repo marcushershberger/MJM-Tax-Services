@@ -16,16 +16,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/    
-    include 'php_to_html_functions.php';
-    include('inc/conn.php');
-
-    echo p("Welcome Client");
-    $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
-
-    // Make sure the database connection was successful.
-    if (mysqli_connect_errno()) {
-        echo p("Failed to connect: " . mysqli_connect_errno());
-    }
-    include 'file_upload_input.php';
-    include 'user_file_list.php';
+*/
+    echo h1("Upload a Document");
+    $input = input("file", "document");
+    $uploadFile = "inc/uploadFile.php";
+    echo form($input, $uploadFile, "POST");

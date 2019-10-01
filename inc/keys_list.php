@@ -16,16 +16,21 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/    
-    include 'php_to_html_functions.php';
-    include('inc/conn.php');
-
-    echo p("Welcome Client");
-    $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
-
-    // Make sure the database connection was successful.
-    if (mysqli_connect_errno()) {
-        echo p("Failed to connect: " . mysqli_connect_errno());
+*/ 
+    echo h1("Registration Links");
+    $linkTableContents = tr(th("Links").th("Type").th("Status"));
+    
+    // Query the database for a list of registration keys that have been generated. This includes the key, the type, and its status.
+    $sqlLinks = $conn->prepare("SELECT reg_key, type, used FROM registration_keys ORDER BY id ASC");
+    $sqlLinks->execute();
+    $sqlLinks->bind_result($regKey, $type, $used);
+    while ($sqlLinks->fetch()) {
+        $keyCell = td($regKey);
+        $typeCell = td($type == 0 ? "Client" : "Admin");
+        $usedCell = td($used == 1 ? "Used" : "Valid");
+        $row = tr($keyCell.$typeCell.$usedCell);
+        $linkTableContents .= $row;
     }
-    include 'file_upload_input.php';
-    include 'user_file_list.php';
+    
+    // Echo the table.
+    echo table($linkTableContents);

@@ -17,9 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    include('inc/conn.php'); // Includes database connection info.
-    include('inc/display_functions.php'); // Includes functions that return HTML content for display.
-
     session_start();
     if (!isset($_SESSION['USER'])) header("Location: login.php");
     
