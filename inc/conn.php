@@ -4,4 +4,3 @@
     $db_password = "snodderly";
     $db_name = "SP";
     $db_host = "localhost";
-?>
