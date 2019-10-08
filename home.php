@@ -26,7 +26,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <title>Home</title>
 </head>
 <body>
-<?php if ($_SESSION['ACCT_TYPE'] == 1) {
+<?php
+    if ($_SESSION['ACCT_TYPE'] == 1) {
         include 'inc/client_page.php';
     }
     else {

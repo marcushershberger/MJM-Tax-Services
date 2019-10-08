@@ -1,0 +1,3 @@
+<?php
+
+// Destroy session variables.

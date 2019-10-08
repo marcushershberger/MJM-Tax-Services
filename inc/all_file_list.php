@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */ 
-
+    include 'doc_file_path.php';
     // Start a table that will contain a list of uploaded files.
 
     echo h1("Uploaded Files");
@@ -28,7 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     $sqlUploads->execute();
     $sqlUploads->bind_result($filename);
     while ($sqlUploads->fetch()) {
-        $cell = td($filename);
+        $cell = td(a($filename, $docFilePath.$filename));
         $row = tr($cell);
         $fileTableContents .= $row;
     }

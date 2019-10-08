@@ -17,13 +17,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */ 
+    include 'doc_file_path.php';
     $tableContents = tr(th("Files"));
     $sqlUploads = $conn->prepare("SELECT file_name FROM file_uploads WHERE user = ?");
     $sqlUploads->bind_param('i', $_SESSION['USER']);
 	$sqlUploads->execute();
 	$sqlUploads->bind_result($filename);
 	while ($sqlUploads->fetch()) {
-        $cell = td($filename);
+        $cell = td(a($filename, $docFilePath.$filename));
         $row = tr($cell);
         $tableContents .= $row;
 	}
