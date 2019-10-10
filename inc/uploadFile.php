@@ -28,7 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
     
     // Indicate where the uploaded file should be stored.
-    $storage = new \Upload\Storage\FileSystem('../../../../docs');
+    $storage = new \Upload\Storage\FileSystem('../docs');
     // Create the upload object using the name of the input and the storage location
     $file = new \Upload\File('document', $storage);
 
