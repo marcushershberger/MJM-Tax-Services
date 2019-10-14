@@ -17,7 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    $data = json_decode($_POST["obj"]);
 
     $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randString = "";
@@ -27,22 +26,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $randString .= $chars[$index];
     }
     
-    $type = (int)($data->_type);
-    
-    include('inc/conn.php');
-    $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
-    
-    if ($connection->connect_error) {
-        die("Connection failed.");
-    }
-    
-    $used = 0;
-    $sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
-    $result = $connection->query($sql);
-    
-    if ($result) {
-        echo $randString;
-    }
-    else {
-        echo "NONE";
-    }
+

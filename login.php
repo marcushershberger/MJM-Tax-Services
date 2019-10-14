@@ -26,8 +26,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 </head>
 <body>
     <form action="db/auth_user.php" method="post">
-        <input type="text" name="user" placeholder="Username"><br>
-        <input type="password" name="pass" placeholder="Password"><br>
+        <input type="text" id="username" name="user" placeholder="Username"><br>
+        <input type="password" id="pass" name="pass" placeholder="Password"><br>
         <input type="submit" id="submit" value="Log In">
     </form>
     <?php

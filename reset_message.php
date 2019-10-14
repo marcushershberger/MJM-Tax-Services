@@ -18,32 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+include "inc/php_to_html_functions.php";
 
-$errorMsg = "";
-if (isset($_GET['errorCode'])) {
-    $err = $_GET['errorCode'];
-    if ($err == 1) {
-        $errorMsg = "Key is not valid";
-    }
-    else if ($err == 2) {
-        $errorMsg = "Email is not valid";
-    }
-    else {
-        $errorMsg = "Key and Email are not valid";
-    }
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <script type="text/javascript" src="../key_gen.js"></script>
-    <title>MJM</title>
-</head>
-<body>
-<form action="key_generator_reset.php" method="post">
-    <input type="text" id="email" name="email" placeholder="Email"><br>
-    <p id='error'><?php echo $errorMsg; ?></p>
-    <input type="submit" value="Email Key" id="emailBtn">
-</form>
-</body>
-</html>
+echo p("An email will be sent with your reset key.");

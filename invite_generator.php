@@ -17,33 +17,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+$data = json_decode($_POST["obj"]);
 
+include "key_generator.php";
 
-$errorMsg = "";
-if (isset($_GET['errorCode'])) {
-    $err = $_GET['errorCode'];
-    if ($err == 1) {
-        $errorMsg = "Key is not valid";
-    }
-    else if ($err == 2) {
-        $errorMsg = "Email is not valid";
-    }
-    else {
-        $errorMsg = "Key and Email are not valid";
-    }
+$type = (int)($data->_type);
+
+include('inc/conn.php');
+$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
+
+if ($connection->connect_error) {
+    die("Connection failed.");
 }
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <script type="text/javascript" src="../key_gen.js"></script>
-    <title>MJM</title>
-</head>
-<body>
-<form action="key_generator_reset.php" method="post">
-    <input type="text" id="email" name="email" placeholder="Email"><br>
-    <p id='error'><?php echo $errorMsg; ?></p>
-    <input type="submit" value="Email Key" id="emailBtn">
-</form>
-</body>
-</html>
+
+$used = 0;
+$sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
+$result = $connection->query($sql);
+
+if ($result) {
+    echo $randString;
+}
+else {
+    echo "NONE";
+}
