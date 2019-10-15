@@ -8,16 +8,17 @@
 	if ($connection->connect_error) {
 		die("Connection Error".$connection->connect_error);
 	}
-	
+
 	$username = $_POST["user"];
 	$password = $_POST["pass"];
 
 	$authUser = $connection->prepare("SELECT id, password_hash, account_type FROM users WHERE username = ? OR email_addr = ?");
 	$authUser->bind_param('ss', $username, $username);
 	$authUser->execute();
-	$authUser->bind_result($id,$hash, $account_type);
+	$authUser->bind_result($id, $hash, $account_type);
 	$authUser->fetch();
     $loggedin = password_verify($password, $hash);
+		echo "$id|\n$password|\n$hash|";
     session_start();
     session_regenerate_id();
     if ($loggedin) {
@@ -27,4 +28,4 @@
     else {
         session_unset();
     }
-	header("Location: ../". ($loggedin ? "home.php" : "login.php"));
+	//header("Location: ../". ($loggedin ? "home.php" : "login.php"));

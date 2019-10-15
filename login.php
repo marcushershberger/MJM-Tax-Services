@@ -43,6 +43,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
         }
     ?>
-    <a href="generate_reset_key.php">reset password</a>
+    <a href="generate_reset_key.php" id="pass_reset">reset password</a>
 </body>
 </html>

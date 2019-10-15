@@ -17,12 +17,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */ 
-    include 'doc_file_path.php';
     // Start a table that will contain a list of uploaded files.
 
     echo h1("Uploaded Files");
     $fileTableContents = tr(th("Files"));
-    
+
     // Query the database for a list of files that have been uploaded by users.
     $sqlUploads = $conn->prepare("SELECT file_name FROM file_uploads");
     $sqlUploads->execute();
@@ -32,6 +31,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $row = tr($cell);
         $fileTableContents .= $row;
     }
-    
+
     // Echo the table.
     echo table($fileTableContents);
