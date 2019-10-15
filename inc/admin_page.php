@@ -19,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
     include 'php_to_html_functions.php';
     include 'conn.php';
+    include 'logout_button.php';
     
     echo p("Welcome Admin");
     

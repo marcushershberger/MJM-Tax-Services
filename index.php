@@ -25,6 +25,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         <title>MJM</title>
     </head>
     <body>
+	<?php include 'inc/php_to_html_functions.php'; if (isset($_GET['logout']) && $_GET['logout']) echo p("You have been logged out."); ?>
         <a href="signup.php">Sign Up</a>
         <a href="login.php">Log In</a>
         <a href="request.php">Request</a>

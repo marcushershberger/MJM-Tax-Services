@@ -19,7 +19,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */    
     include 'php_to_html_functions.php';
     include('inc/conn.php');
-
+    include 'logout_button.php';
+    
     echo p("Welcome Client");
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 

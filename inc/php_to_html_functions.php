@@ -90,7 +90,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     function form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
         return "<form action='$action' method='$method' id='$id' class='$class' style='$style'  enctype='multipart/form-data' >$contents".input("submit", "submit", " ", "submitButton")."</form>";
     }
-
-    function testElem($contents) {
-        return "<te>$contents</te>";
+    
+    function button_form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
+        return "<form action='$action' method='$method' id='$id' class='$class' style='$style'  enctype='multipart/form-data' ><input type='submit' name='submit' value='$contents' /></form>";
     }
