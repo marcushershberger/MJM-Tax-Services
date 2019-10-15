@@ -31,7 +31,6 @@ if (isset($_GET['errorCode'])) {
     else {
         $errorMsg = "Key and Email are not valid";
     }
-    $errorMsg = $err;
 }
 ?>
 <!DOCTYPE html>
@@ -41,13 +40,7 @@ if (isset($_GET['errorCode'])) {
     <title>MJM</title>
 </head>
 <body>
-<select id="accountSelection">
-    <option value="1">Client</option>
-    <option value="2">Admin</option>
-</select>
-<button onclick="generateKeyRequest()" id="generateKeyBtn">Generate</button>
 <form action="key_generator_reset.php" method="post">
-    <input type="text" id="username" name="username" placeholder="Username"><br>
     <input type="text" id="email" name="email" placeholder="Email"><br>
     <p id='error'><?php echo $errorMsg; ?></p>
     <input type="submit" value="Email Key" id="emailBtn">

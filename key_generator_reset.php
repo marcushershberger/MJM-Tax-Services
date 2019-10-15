@@ -18,15 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-$randString = "";
-const STR_LEN = 8;
-for ($i = 0; $i < STR_LEN; $i++) {
-    $index = rand(0, strlen($chars) - 1);
-    $randString .= $chars[$index];
-}
-
-$id =
+include "key_generator.php";
 
 include('inc/conn.php');
 $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
@@ -35,20 +27,26 @@ if ($connection->connect_error) {
     die("Connection failed.");
 }
 
-$username = $_POST['username'];
+$user_email = $_POST['email'];
 
-$username = "SELECT id FROM users WHERE username='$username'";
-$row = $connection->query($query);
-$account_id = $row['username'];
+$sql_userid = $connection->prepare("SELECT id FROM users WHERE email_addr = ?");
+$sql_userid->bind_param("s", $user_email);
+$sql_userid->execute();
+$sql_userid->bind_result($id);
 
-$used = 0;
-$sql = "INSERT INTO pw_reset_keys (reset_key, account_id, used) VALUES ('$randString', $account_id, $used);";
-$result = $connection->query($sql);
+if ($sql_userid->fetch()) {
+    $sql_userid->close();
+    $used = 0;
+    $sql = "INSERT INTO pw_reset_keys (reset_key, account_id, used) VALUES (?, ?, ?)";
+    $sql_insert = $connection->prepare($sql);
+    $sql_insert->bind_param("sii", $randString, $id, $used);
+    $sql_insert->execute();
 
-if ($result) {
-    echo $randString;
+    include "emailKeyReset.php";
+    header("Location: reset_message.php");
+
+} else {
+    header("Location: generate_reset_key.php?errorCode=2");
 }
-else {
-    echo $account_id;
-    echo "NONE";
-}
+
+

@@ -8,7 +8,7 @@
 	if ($connection->connect_error) {
 		die("Connection Error".$connection->connect_error);
 	}
-	
+
 	$username = $_POST["user"];
 	$password = $_POST["pass"];
 

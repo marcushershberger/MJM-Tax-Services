@@ -19,14 +19,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
     include("../vendor/autoload.php");
     include 'conn.php';
-    
+
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
     // Make sure the database connection was successful.
     if (mysqli_connect_errno()) {
         echo p("Failed to connect: " . mysqli_connect_errno());
     }
-    
+
     // Indicate where the uploaded file should be stored.
     $storage = new \Upload\Storage\FileSystem('../docs');
     // Create the upload object using the name of the input and the storage location
@@ -38,13 +38,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     $dateTime = date("Y-m-d H:i:s");
     $newFilename = $_SESSION['USER']." $dateTime";
     $file->setName($newFilename);
-    
+
     // Check that the uploaded file is the right mimetype and size.
     $file->addValidations(array(
         new \Upload\Validation\Mimetype('application/pdf'),
         new \Upload\Validation\Size('1M')
     ));
-    
+
     // Store the file on the server and create a database entry of the uploaded file.
     try {
         $file->upload();
@@ -62,4 +62,3 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             echo $errorMsg;
         }
     }
-

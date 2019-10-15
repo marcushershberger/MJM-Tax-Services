@@ -16,21 +16,27 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/ 
-    // Start a table that will contain a list of uploaded files.
+*/
+$data = json_decode($_POST["obj"]);
 
-    echo h1("Uploaded Files");
-    $fileTableContents = tr(th("Files"));
+include "key_generator.php";
 
-    // Query the database for a list of files that have been uploaded by users.
-    $sqlUploads = $conn->prepare("SELECT file_name FROM file_uploads");
-    $sqlUploads->execute();
-    $sqlUploads->bind_result($filename);
-    while ($sqlUploads->fetch()) {
-        $cell = td(a($filename, "inc/deliverFile.php?file=$filename"));
-        $row = tr($cell);
-        $fileTableContents .= $row;
-    }
+$type = (int)($data->_type);
 
-    // Echo the table.
-    echo table($fileTableContents);
+include('inc/conn.php');
+$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
+
+if ($connection->connect_error) {
+    die("Connection failed.");
+}
+
+$used = 0;
+$sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
+$result = $connection->query($sql);
+
+if ($result) {
+    echo $randString;
+}
+else {
+    echo "NONE";
+}
