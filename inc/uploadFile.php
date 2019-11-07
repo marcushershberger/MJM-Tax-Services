@@ -17,8 +17,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    include("../vendor/autoload.php");
-    include 'conn.php';
+
+    include("./vendor/autoload.php");
+    include 'inc/conn.php';
 
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
@@ -36,22 +37,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     session_start();
     // Change the name of the uploaded file to the user id and the datetime of upload. Keep the extension.
     $dateTime = date("Y-m-d H:i:s");
-    $newFilename = $_SESSION['USER']." $dateTime";
-    $file->setName($newFilename);
 
     // Check that the uploaded file is the right mimetype and size.
     $file->addValidations(array(
-        new \Upload\Validation\Mimetype('application/pdf'),
-        new \Upload\Validation\Size('1M')
+        new \Upload\Validation\Mimetype('application/pdf', 'image/jpg', 'image/jpeg');
     ));
 
     // Store the file on the server and create a database entry of the uploaded file.
     try {
         $file->upload();
-        $pdf = "pdf";
-        $fullFilename = $newFilename.".pdf";
+        $type = $file->getExtension();
+        $fullFilename = $file->getNameWithExtensions();
         $sqlUpload = $conn->prepare("INSERT INTO file_uploads (user, file_type, date_time, file_name) VALUES (?,?,?,?)");
-        $sqlUpload->bind_param("isss", $_SESSION['USER'], $pdf, $dateTime, $fullFilename);
+        $sqlUpload->bind_param("isss", $_SESSION['USER'], $type, $dateTime, $fullFilename);
         $sqlUpload->execute();
         $sqlUpload->close();
         $conn->close();

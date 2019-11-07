@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-
-include "php_to_html_functions.php";
-
-echo p("An email will be sent with your reset key.");
+    session_start();
+    if (!isset($_SESSION['USER'])) header("Location: login.php");
+        include 'inc/uploadFile.php';
+    }

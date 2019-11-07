@@ -20,12 +20,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     include 'php_to_html_functions.php';
     include 'conn.php';
     include 'logout_button.php';
-    
+
     echo p("Welcome Admin");
-    
+
+    include 'invite.php';
     // Create a database connection.
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name);
-    
+
     if (mysqli_connect_errno()) {
         echo p("Failed to connect: " . mysqli_connect_errno());
     }

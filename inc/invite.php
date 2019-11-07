@@ -34,16 +34,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $errorMsg = $err;
     }
 
-    echo h1("Invite a Client");
-    echo script("js/key_gen.js");
     $clientOpt = option("Client", 1);
     $adminOpt = option("Admin", 2);
-    echo select($clientOpt.$adminOpt, " ", "accountSelection");
-    echo button("Generate", "generateKeyRequest()", " ", "generateKeyBtn");
-    $inputKey = input("text", "key", " ", "Key", " ","regKey", "key");
-    $inputEmail = input("text", "email", " ", "Email", " ", "email");
-    $br = br();
-    $textArea = textArea("message", "10", "30", " ", "message");
-    $p = p($errorMsg, " ", "error");
-    echo form($inputKey.$inputEmail.$br.$textArea.$p, "emailInvite.php");
+    echo select($client_opt.$admin_opt, $id = 'accountSelection');
+    echo button("Generate", "generateKeyRequest()", $id = 'generateKeyBtn');
+    $inputKey = input("text", "key", "regKey", "key");
+    $inputEmail = input("text", "email", $id = "email", $placeholder = "Email");
+    $textArea = textArea("message", "10", "30", $id = "message");
+    $p = p($errorMsg, $id = "error");
+    $inputSubmit = input("submit", $value = "Email Key", $id = "emailBtn");
+    echo form($inputKey.$inputEmail.$textArea.$p.$inputSubmit, "emailInvite.php");
 ?>

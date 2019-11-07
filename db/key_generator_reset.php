@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 include "key_generator.php";
 
-include('inc/conn.php');
+include('../inc/conn.php');
 $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
 
 if ($connection->connect_error) {
@@ -48,5 +48,3 @@ if ($sql_userid->fetch()) {
 } else {
     header("Location: generate_reset_key.php?errorCode=2");
 }
-
-

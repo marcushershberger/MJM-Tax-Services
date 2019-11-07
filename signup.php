@@ -17,21 +17,27 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+    session_start();
+    if (isset($_SESSION['USER']) || isset($_SESSION['ACCT_TYPE'])) {
+      header("Location: home.php");
+    }
     include('inc/conn.php');
     include('inc/php_to_html_functions.php');
+
+
     $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
-    
+
 
 
     if ($connection->connect_error) {
         die("Connection failed.");
     }
-    
+
     $registration_key = isset($_GET["key"]) ? $_GET["key"] : "";
-    
+
     $sql = "SELECT id, question FROM security_questions";
     $result = $connection->query($sql);
-    
+
     $questions = [];
     while ($row = $result->fetch_assoc()) {
         $questions[] = array("id"=>$row["id"], "question"=>$row["question"]);
@@ -40,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
         <title>MJM</title>
     </head>
     <body onload="populateStateDropdown()">

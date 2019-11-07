@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 require_once './vendor/autoload.php';
-include 'inc/validations.php'; // Needed for valid email check
-include 'inc/mail_vars.php';
+include 'validations.php'; // Needed for valid email check
+include 'mail_vars.php';
 
 
 $key = $randString;

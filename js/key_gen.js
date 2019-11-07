@@ -33,6 +33,6 @@ function generateKeyRequest() {
             document.getElementById("message").value = message_data;
         }
     }
-    
+
     request.send(obj);
 }

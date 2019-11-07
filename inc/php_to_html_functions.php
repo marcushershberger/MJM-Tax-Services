@@ -46,25 +46,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
 
     // <button> tag
-    function button($contents, $class = ' ', $id = ' ', $style = ' ') {
-        return "<button id='$id' class='$class' style='$style'>$contents</button>";
+    function button($contents, $onclick = ' ', $class = ' ', $id = ' ', $style = ' ') {
+        return "<button onclick='$onclick' id='$id' class='$class' style='$style'>$contents</button>";
     }
 
     // <a> tag
     function a($contents, $link, $class = ' ', $id = ' ', $style = ' ') {
         return "<a href='$link' id='$id' class='$class' style='$style'>$contents</a>";
     }
-    
+
     // <option>
     function option($contents, $value, $class = ' ', $id = ' ', $style = ' ') {
         return "<option id='$id' class='$class' style='$style' value='$value'>$contents</option>";
     }
 
     // <input> tag
-    function input($type, $name, $accept = ' ', $class = ' ', $id = ' ', $style = ' ') {
-        return "<input type='$type' name='$name' accept='$accept' class='$class' id='$id' style='$style' />";
+    function input($type, $name, $accept = ' ', $placeholder = ' ',  $value = ' ', $class = ' ', $id = ' ', $style = ' ') {
+        return "<input type='$type' name='$name' accept='$accept' class='$class' id='$id' style='$style' placeholder='$placeholder' />";
     }
-    
+
     // <table> tag
     function table($contents, $class = ' ', $id = ' ', $style = ' ') {
         return "<table id='$id' class='$class' style='$style'>$contents</table>";
@@ -90,7 +90,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     function form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
         return "<form action='$action' method='$method' id='$id' class='$class' style='$style'  enctype='multipart/form-data' >$contents".input("submit", "submit", " ", "submitButton")."</form>";
     }
-    
+
     function button_form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
         return "<form action='$action' method='$method' id='$id' class='$class' style='$style'  enctype='multipart/form-data' ><input type='submit' name='submit' value='$contents' /></form>";
+    }
+
+    function select($contents, $class = ' ', $id = ' ', $style = ' ') {
+        return "<select id='$id' class='$class' style='$style'>$contents</select>";
+    }
+
+    function textArea($name, $rows, $columns, $class = ' ', $id = ' ', $style = ' ') {
+        return "<textarea name='$name' rows='$rows' cols='$columns' name='$name' id='$id' class='$class'></textarea>";
+    }
+
+    function script($src) {
+        return "<script src='$src'></script>";
+    }
+
+    function br() {
+        return "<br>";
     }

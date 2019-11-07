@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
     session_start();
     if (!isset($_SESSION['USER'])) header("Location: login.php");
-    
+
 ?>
 <html>
 <head>
@@ -30,11 +30,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     if ($_SESSION['ACCT_TYPE'] == 1) {
         include 'inc/client_page.php';
     }
-    else {
+    else if ($_SESSION['ACCT_TYPE'] == 2){
         include 'inc/admin_page.php';
     }
 
-    
+
 /* SESSION INFORMATION WILL RESIDE HERE */
 
 ?>
