@@ -17,20 +17,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    include 'php_to_html_functions.php';
+
     include 'conn.php';
-    include 'logout_button.php';
 
-    echo p("Welcome Admin");
-
-    include 'invite.php';
     // Create a database connection.
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name);
-
     if (mysqli_connect_errno()) {
         echo p("Failed to connect: " . mysqli_connect_errno());
     }
+
+    include 'php_to_html_functions.php';
+    include 'logout_button.php';
+    echo br().br();
+    echo p("Welcome Admin");
+
     // Admin information included here
-    include 'all_file_list.php';
+    include 'folder_view.php';
+    include 'user_activity_all.php';
+    include 'invite.php';
     include 'keys_list.php';
-    include 'users_list.php';

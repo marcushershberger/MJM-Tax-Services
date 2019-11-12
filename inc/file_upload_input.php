@@ -19,5 +19,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
     echo h1("Upload a Document");
     $input = input("file", "document");
-    $uploadFile = "inc/uploadFile.php";
+    $uploadFile = "uploadFile.php";
     echo form($input, $uploadFile, "POST");

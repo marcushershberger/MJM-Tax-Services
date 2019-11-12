@@ -19,5 +19,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
     session_start();
     if (!isset($_SESSION['USER'])) header("Location: login.php");
-        include 'inc/uploadFile.php';
-    }
+    include 'inc/uploadFile.php';

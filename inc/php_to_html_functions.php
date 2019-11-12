@@ -85,6 +85,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         return "<td id='$id' class='$class' style='$style'>$contents</td>";
     }
 
+    function tdClickable($contents, $class = ' ', $id = ' ', $style = ' ', $onclick = ' ') {
+        return "<td id='$id' class='$class' style='$style' onclick='$onclick'>$contents</td>";
+    }
+
     // <form> tag
     // Submit button within form will have class of submitButton'
     function form($contents, $action, $method = "POST", $class = ' ', $id = ' ', $style = ' ') {
@@ -109,4 +113,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     function br() {
         return "<br>";
+    }
+
+    function img($src, $class = ' ', $id = ' ', $style = ' ') {
+      return "<img src='$src' class='$class' id='$id' style='$style' />";
+    }
+
+    function cssLink($src) {
+      return "<link rel='stylesheet' type='text/css' href='$src'>";
     }

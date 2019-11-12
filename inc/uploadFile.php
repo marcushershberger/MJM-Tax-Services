@@ -19,7 +19,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
     include("./vendor/autoload.php");
-    include 'inc/conn.php';
+    include 'conn.php';
+    include 'mail_vars.php';
 
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
@@ -29,31 +30,47 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
 
     // Indicate where the uploaded file should be stored.
-    $storage = new \Upload\Storage\FileSystem('../docs');
+    $storage = new \Upload\Storage\FileSystem('docs');
     // Create the upload object using the name of the input and the storage location
     $file = new \Upload\File('document', $storage);
 
-    // Start the session for cross-page variables.
-    session_start();
+
     // Change the name of the uploaded file to the user id and the datetime of upload. Keep the extension.
     $dateTime = date("Y-m-d H:i:s");
 
     // Check that the uploaded file is the right mimetype and size.
     $file->addValidations(array(
-        new \Upload\Validation\Mimetype('application/pdf', 'image/jpg', 'image/jpeg');
+        new \Upload\Validation\Mimetype('application/pdf', 'image/jpg', 'image/jpeg')
     ));
 
     // Store the file on the server and create a database entry of the uploaded file.
     try {
         $file->upload();
         $type = $file->getExtension();
-        $fullFilename = $file->getNameWithExtensions();
+        $fullFilename = $file->getNameWithExtension();
         $sqlUpload = $conn->prepare("INSERT INTO file_uploads (user, file_type, date_time, file_name) VALUES (?,?,?,?)");
         $sqlUpload->bind_param("isss", $_SESSION['USER'], $type, $dateTime, $fullFilename);
         $sqlUpload->execute();
         $sqlUpload->close();
+
+        $sqlActivityType = $conn->prepare("SELECT id FROM activity_types WHERE name = 'File Upload'");
+        $sqlActivityType->execute();
+        $sqlActivityType->bind_result($activityType);
+        $sqlActivityType->fetch();
+        $sqlActivityType->close();
+
+        $sqlActivity = $conn->prepare("INSERT INTO activities (user_id, activity_type, date_time) VALUES (?,?,?)");
+        $sqlActivity->bind_param("iis", $_SESSION['USER'], $activityType, $dateTime);
+        $sqlActivity->execute();
+        $sqlActivity->close();
         $conn->close();
-        header("Location: ../home.php");
+
+        $recipient = 'testing.mjm.services@gmail.com';
+        $content = "User has successfully uploaded a file";
+        $message = (new Swift_Message('User has uploaded file to MJM'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
+        $result = $mailer->send($message);
+        // Send mail
+        header("Location: home.php");
     } catch (\Exception $e) {
         $errors = $file->getErrors();
         foreach ($errors as $errorMsg) {

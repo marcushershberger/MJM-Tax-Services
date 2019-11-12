@@ -35,13 +35,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     $registration_key = isset($_GET["key"]) ? $_GET["key"] : "";
 
-    $sql = "SELECT id, question FROM security_questions";
+    $sql = "SELECT id, question FROM security_questions ORDER BY id ASC";
     $result = $connection->query($sql);
 
     $questions = [];
+    $serverq = [];
     while ($row = $result->fetch_assoc()) {
         $questions[] = array("id"=>$row["id"], "question"=>$row["question"]);
+        $serverq[] = $row["question"];
     }
+    $_SESSION['questions'] = $serverq;
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,12 +57,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             <input type="text" name="fname" placeholder="First Name" required><br>
             <input type="text" name="lname" placeholder="Last Name" required><br>
             <input type="text" name="user" placeholder="Username" required><br>
+            <p>Username must be within 6 - 20 characters.</p>
             <input type="text" id="email" name="email" placeholder="Email Address" onkeyup="valEmail()" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required><br>
             <input type="password" id="pass" name="pass" placeholder="Password" onkeyup="comparePassword()" required><br>
             <input type="password" id="passVerif" name="passVerif" placeholder="Retype Password" onkeyup="comparePassword()" required><br>
             <p>Password must contain: 1 lowercase, 1 uppercase, 1 number, one special character, must be 8 characters long</p><br>
             <input type="checkbox" onchange="showPass()" id="box"> Show Password<br>
-            <input type="text" name="phoneNum" placeholder="Phone Number" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required><br>
+            <input type="number" name="phoneNum" placeholder="Phone Number" pattern="\d{3}\d{3}\d{4}" required><br>
             <input type="text" name="street" placeholder="Street" required><br>
             <input type="text" name="street2" placeholder="Street2 "><br>
             <input type="text" name="city" placeholder="City" required><br>
@@ -70,7 +74,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             <input type="text" name="key" placeholder="Registration Key" value="<?php echo $registration_key ?>" required><br>
         <p>Answer 3 security questions (answers are not case sensitive)</p><br>
         <?php
-            echo "<select  id='1' name='quest1' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='1' name='quest1' <!--onchange='removeSelections(this.value, this.id)'-->>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
@@ -79,7 +83,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         ?>
         <input type="text" name="sec_ans_1" placeholder="Answer" required><br>
         <?php
-            echo "<select  id='2' name='quest2' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='2' name='quest2' <!--onchange='removeSelections(this.value, this.id)'-->>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
@@ -88,7 +92,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         ?>
         <input type="text" name="sec_ans_2" placeholder="Answer" required><br>
         <?php
-            echo "<select  id='3' name='quest3' onchange='removeSelections(this.value, this.id)'>";
+            echo "<select  id='3' name='quest3' <!--onchange='removeSelections(this.value, this.id)'-->>";
             echo "<option value='' disabled selected>Select a security question...</option>";
             for ($i = 0; $i < count($questions); $i++) {
                 echo option($questions[$i]["question"], $questions[$i]["id"]);
