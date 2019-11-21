@@ -17,29 +17,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    $connection = "";
-    if (isset($_POST['obj'])) {
-      include 'inc/php_to_html_functions.php';
-      include 'inc/conn.php';
-      $connection = mysqli_connect($db_host, $db_username, $db_password, $db_name);
-      if (mysqli_connect_errno()) {
-          echo p("Failed to connect: " . mysqli_connect_errno());
-      }
-    }
-    else {
-      $connection = $conn;
+    $id = $_POST['obj'];
+    include 'inc/php_to_html_functions.php';
+    include 'inc/conn.php';
+    $connection = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+    if (mysqli_connect_errno()) {
+        echo p("Failed to connect: " . mysqli_connect_errno());
     }
 
-    $sqlUserList = $connection->prepare("SELECT id, username, first_name, last_name FROM users");
+    $sqlUserList = $connection->prepare("SELECT DISTINCT SUBSTRING(date_time, 1, 4) FROM file_uploads WHERE user = ?");
+    $sqlUserList->bind_param("i", $id);
     $sqlUserList->execute();
-    $sqlUserList->bind_result($id, $username, $first_name, $last_name);
+    $sqlUserList->bind_result($year);
     $column = 0;
     $COLUMNS = 4;
-    $tableContents = "";
+    $tableContents = tr(th(button("Back", "getFiles(0)")));
     $rowContents = "";
     while ($sqlUserList->fetch()) {
-      $func = "getYearFolders($id)";
-      $rowContents .= tdClickable(div(img("folder.png", " ", " ", "width:100%"), " ", " ", "height:100px;width:100px").$first_name." ".$last_name, " ", " ", " ", $func);
+      $func = "getFiles($id, $year)";
+      $rowContents .= tdClickable(div(img("folder.png", " ", " ", "width:100%"), " ", " ", "height:100px;width:100px").$year, " ", " ", " ", $func);
       if ($column + 1 == $COLUMNS) {
         $column = 0;
         $tableContents .= tr($rowContents);
@@ -49,5 +45,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $column++;
       }
     }
+    if ($column < $COLUMNS) $tableContents .= tr($rowContents);
     $sqlUserList->close();
-    echo isset($_POST['obj']) ? table($tableContents) : div(table($tableContents), " ", "files");
+    echo table($tableContents);

@@ -40,7 +40,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     // Check that the uploaded file is the right mimetype and size.
     $file->addValidations(array(
-        new \Upload\Validation\Mimetype('application/pdf', 'image/jpg', 'image/jpeg')
+        new \Upload\Validation\Mimetype('application/pdf', 'image/jpeg')
     ));
 
     // Store the file on the server and create a database entry of the uploaded file.

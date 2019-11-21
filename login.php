@@ -28,6 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <head>
     <script type="text/javascript" src="main.js"></script>
     <title>MJM</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 <body>
     <form action="db/auth_user.php" method="post">

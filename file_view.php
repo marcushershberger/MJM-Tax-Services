@@ -33,7 +33,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       $sqlUserFiles->bind_result($file_type, $date_time, $file_name);
       $column = 0;
       $COLUMNS = 4;
-      $tableContents = "";
+      $tableContents = tr(th(button("Back", "getYearFolders($user)")));
       $rowContents = "";
       while ($sqlUserFiles->fetch()) {
         $img = img("pdf.png", " ", " ", "width:100%");

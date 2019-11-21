@@ -37,9 +37,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       $types[] = $name;
     }
     $sqlActivityTypes->close();
-
-    $sqlRecent = $conn->prepare("SELECT activity_type, date_time FROM activities WHERE user_id = ? ORDER BY date_time DESC LIMIT 10");
-    $sqlRecent->bind_param("i", $id);
+    $modifier = $id == 0 ? "" : "WHERE user_id = ?";
+    $query = "SELECT activity_type, date_time FROM activities $modifier ORDER BY date_time DESC LIMIT 10";
+    $sqlRecent = $conn->prepare($query);
+    if ($id != 0) {
+      $sqlRecent->bind_param("i", $id);
+    }
     $sqlRecent->execute();
     $sqlRecent->bind_result($activityType, $dateTime);
     $rows = array();

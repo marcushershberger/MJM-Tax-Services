@@ -51,8 +51,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <head>
         <script type="text/javascript" src="js/main.js"></script>
         <title>MJM</title>
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body onload="populateStateDropdown()">
+      <div id="container">
         <form action="db/store_user.php" method="post" id="infoForm">
             <input type="text" name="fname" placeholder="First Name" required><br>
             <input type="text" name="lname" placeholder="Last Name" required><br>
@@ -102,5 +104,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         <input type="text" name="sec_ans_3" placeholder="Answer" required><br>
             <input type="submit" id="submit" value="Sign Up">
         </form>
+      </div>
     </body>
 </html>

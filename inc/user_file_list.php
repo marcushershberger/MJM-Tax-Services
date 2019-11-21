@@ -26,7 +26,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	$sqlUploads->execute();
 	$sqlUploads->bind_result($filename);
 	while ($sqlUploads->fetch()) {
-        $cell = td(a($filename, "inc/deliverFile.php?file=$filename"));
+        $cell = td(a($filename, "deliverFile.php?file=$filename"));
         $row = tr($cell);
         $tableContents .= $row;
 	}

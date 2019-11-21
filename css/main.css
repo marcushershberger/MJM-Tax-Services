@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Gotham;
+  src: url(Gotham-Book.ttf);
+}
+
 td {
   width: 200px;
 }
@@ -5,4 +10,50 @@ td {
 #files {
   height: 500px;
   overflow: scroll;
+}
+
+button {
+  outline: none;
+  background-color: #667CD6;
+  color: white;
+  border: none;
+  font-family: Gotham;
+  font-size: 1.2em;
+  box-shadow: 1px 1px 1px black;
+}
+
+input[type=submit] {
+  outline: none;
+  background-color: #667CD6;
+  color: white;
+  border: none;
+  box-shadow: 1px 1px 1px black;
+  font-size: 1.2em;
+}
+
+input[type=text], input[type=number], input[type=password] {
+  font-family: Gotham;
+  font-size: 1.2em;
+}
+
+p, h1 {
+  font-family: Gotham;
+}
+
+p {
+  font-size: 1.3em;
+}
+
+#container {
+  width: 50%;
+  margin: auto;
+}
+
+table {
+  font-family: Gotham;
+  font-size: 1.2em;
+}
+
+button:hover, input[type=submit]:hover {
+  cursor: pointer;
 }
