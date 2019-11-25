@@ -36,11 +36,11 @@ if (isset($_GET['errorCode'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="../key_gen.js"></script>
+    <script type="text/javascript" src="js/key_gen_reset.js"></script>
     <title>MJM</title>
 </head>
 <body>
-<form action="key_generator_reset.php" method="post">
+<form action="db/key_generator_reset.php" method="post">
     <input type="text" id="email" name="email" placeholder="Email"><br>
     <p id='error'><?php echo $errorMsg; ?></p>
     <input type="submit" value="Email Key" id="emailBtn">

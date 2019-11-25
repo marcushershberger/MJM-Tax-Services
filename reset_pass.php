@@ -24,7 +24,8 @@ $reset_key = $_GET['key'];
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/key_gen.js"></script>
     <title>MJM</title>
 </head>
 

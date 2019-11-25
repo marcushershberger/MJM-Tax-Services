@@ -36,6 +36,16 @@ input[type=text], input[type=number], input[type=password] {
   font-size: 1.2em;
 }
 
+input[type=text] {
+  margin-top: 15px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
 p, h1 {
   font-family: Gotham;
 }

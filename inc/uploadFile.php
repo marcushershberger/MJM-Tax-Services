@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     include 'conn.php';
     include 'mail_vars.php';
 
+    $adminAccountType = 2;
+
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
     // Make sure the database connection was successful.
@@ -63,11 +65,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $sqlActivity->bind_param("iis", $_SESSION['USER'], $activityType, $dateTime);
         $sqlActivity->execute();
         $sqlActivity->close();
+
+
+        $sqlGetUser = $conn->prepare("SELECT username FROM users WHERE id = ?");
+        $sqlGetUser->bind_param("i", $_SESSION['USER']);
+        $sqlGetUser->execute();
+        $sqlGetUser->bind_result($user);
+        $sqlGetUser->fetch();
+        $sqlGetUser->close();
+
+        $sqlGetAdmin = $conn->prepare("SELECT email_addr FROM users WHERE account_type = ?");
+        $sqlGetAdmin->bind_param("i", $adminAccountType);
+        $sqlGetAdmin->execute();
+        $sqlGetAdmin->bind_result($admins);
+        $sqlGetAdmin->fetch();
+        $sqlGetAdmin->close();
         $conn->close();
 
         $recipient = 'testing.mjm.services@gmail.com';
-        $content = "User has successfully uploaded a file";
-        $message = (new Swift_Message('User has uploaded file to MJM'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
+        $content = $user." has successfully uploaded file name: ".$fullFilename.".";
+        $message = (new Swift_Message($user. ' has uploaded file to MJM'))->setFrom([$admins => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
         $result = $mailer->send($message);
         // Send mail
         header("Location: home.php");

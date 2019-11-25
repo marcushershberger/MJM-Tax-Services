@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
 //if (!isset($_POST['email'])) header("Location: index.php");
 include "key_generator.php";
 
@@ -42,7 +43,7 @@ if ($sql_userid->fetch()) {
     $sql_insert->bind_param("sii", $randString, $id, $used);
     $sql_insert->execute();
 
-    include "emailKeyReset.php";
+    include "../inc/emailKeyReset.php";
     header("Location: reset_message.php");
 
 } else {
