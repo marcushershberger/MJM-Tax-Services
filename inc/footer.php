@@ -18,29 +18,5 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-include('../inc/conn.php');
-$connection = new mysqli($db_host, $db_username, $db_password, $db_name);
-
-if ($connection->connect_error) {
-    die("Connection failed.");
-}
-
-$key = $_POST['key'];
-
-$sql_id = $connection->prepare("SELECT account_id FROM pw_reset_keys WHERE reset_key = ?");
-$sql_id->bind_param("s", $key);
-$sql_id->execute();
-$sql_id->bind_result($id);
-$sql_id->fetch();
-$sql_id->close();
-
-
-$pass = $_POST['pass'];
-$hash = password_hash($pass, PASSWORD_BCRYPT);
-
-$sql_pass = $connection->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
-$sql_pass->bind_param("si", $hash, $id);
-$sql_pass->execute();
-$sql_pass->close();
-
-header("Location: ../login.php");
+// Simple footer that should appear on each page.
+  echo div("MJM Tax Services", " ", "footerDiv");

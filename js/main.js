@@ -16,9 +16,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+//Client side validation functions
+
 const SEC_QUESTIONS = 3;
 var chosenQuestions = [,,];
 
+// Create dropdown box for choosing state
 function populateStateDropdown() {
     var states = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','CD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
     var dropdown = document.getElementById("state");
@@ -27,6 +31,8 @@ function populateStateDropdown() {
     }
 }
 
+
+// LEGACY: Remove options from other dropdown boxes when that option is selected in another dropdown box
 function removeSelections(val, id) {
     var id_num = parseInt(id);
     chosenQuestions[id-1] = val;
@@ -38,6 +44,7 @@ function removeSelections(val, id) {
     }
 }
 
+// Check for valid password format and matching
 function comparePassword() {
     var pass = document.getElementById("pass").value;
     var passVerif = document.getElementById("passVerif").value;
@@ -61,6 +68,7 @@ function comparePassword() {
     }
 }
 
+// Check for valid email format
 function valEmail() {
     var email = document.getElementById("email").value;
     var regex = new RegExp("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
@@ -72,7 +80,7 @@ function valEmail() {
     }
 }
 
-//TODO: Maybe instead of button, make an eye with slash through it.
+// Toggles password fieds between visible and not visible
 function showPass() {
     var passwordInput = document.getElementById('pass');
     var passwordInput2 = document.getElementById('passVerif');

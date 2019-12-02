@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-include "inc/php_to_html_functions.php";
-
-echo p("An email will be sent with your reset key.");
+include 'inc/header.php';
+// This page is displayed when a user has requested a password reset.
+echo h2("An email will be sent with your reset key.");
+echo a(button("Login", " ", "mainLinkBtn"), "login.php");
+include 'inc/footer.php';

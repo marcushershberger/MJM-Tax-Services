@@ -18,7 +18,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+// HTML content for generating registration keys
+// This includes a dropdown box, a generate button, a key and email input, and a message textarea
 
+    // Handle error messges
     $errorMsg = "";
     if (isset($_GET['errorCode'])) {
         $err = $_GET['errorCode'];
@@ -34,14 +37,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $errorMsg = $err;
     }
 
-    $clientOpt = option("Client", 1);
-    $adminOpt = option("Admin", 2);
-    echo select($client_opt.$admin_opt, $id = 'accountSelection');
+    $client_opt = option("Client", 1);
+    $admin_opt = option("Admin", 2);
+    echo h1("Invite a Client");
+    echo script("js/key_gen.js");
+    echo select($client_opt.$admin_opt, 'state', 'accountSelection');
+    echo br().br();
     echo button("Generate", "generateKeyRequest()", $id = 'generateKeyBtn');
-    $inputKey = input("text", "key", "regKey", "key");
-    $inputEmail = input("text", "email", $id = "email", $placeholder = "Email");
-    $textArea = textArea("message", "10", "30", $id = "message");
+    $inputKey = input("text", "key", "", "Key", " ", " ", "key");
+    $inputEmail = input("text", "email", "", "Email", "", " ", "email");
+    $textArea = textArea("message", "10", "30", " ", "message");
     $p = p($errorMsg, $id = "error");
-    $inputSubmit = input("submit", $value = "Email Key", $id = "emailBtn");
-    echo form($inputKey.$inputEmail.$textArea.$p.$inputSubmit, "emailInvite.php");
+    echo form($inputKey.br().$inputEmail.br().br().$textArea.$p, "emailInvite.php");
 ?>

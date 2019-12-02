@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
     session_start();
+    // Check that user is authorized to call this script
     if (!isset($_SESSION['USER'])) header("Location: login.php");
     if (isset($_SESSION['USER'])) {
         if ($_SESSION['ACCT_TYPE'] == 1) header("Location: home.php");

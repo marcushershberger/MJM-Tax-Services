@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-require_once './vendor/autoload.php';
+require_once '../vendor/autoload.php';
 include 'validations.php'; // Needed for valid email check
 include 'mail_vars.php';
 
@@ -26,6 +26,16 @@ $key = $randString;
 
 // Create new email message via SwiftMailer library
 $recipient = $user_email;
-$content = "Here is the link to you reset link 10.178.40.49/branch/MJM-Tax-Services/reset_pass.php?key=$key.";
-$message = (new Swift_Message('MJM Tax Services Reset Password'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
+$url = "http://10.178.40.12/branch/MJM-Tax-Services/reset_pass.php?key=$key";
+
+//$content = "Here is the link to you reset link 10.178.40.12/branch/MJM-Tax-Services/reset_pass.php?key=$key";
+$message = (new Swift_Message('MJM Tax Services Reset Password'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody(
+    '<html>' .
+    ' <body>' .
+    '  Click ' .
+    '<a href="'.$url.'">here</a>' .
+    ' here to reset your password.' .
+    ' </body>' .
+    '</html>',
+    'text/html');
 $result = $mailer->send($message);

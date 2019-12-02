@@ -16,21 +16,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/ 
-    // Start a table that will contain a list of uploaded files.
-
-    echo h1("Uploaded Files");
-    $fileTableContents = tr(th("Files"));
-
-    // Query the database for a list of files that have been uploaded by users.
-    $sqlUploads = $conn->prepare("SELECT file_name FROM file_uploads");
-    $sqlUploads->execute();
-    $sqlUploads->bind_result($filename);
-    while ($sqlUploads->fetch()) {
-        $cell = td(a($filename, "inc/deliverFile.php?file=$filename"));
-        $row = tr($cell);
-        $fileTableContents .= $row;
-    }
-
-    // Echo the table.
-    echo table($fileTableContents);
+*/
+    // Database information
+    $db_username = "write";
+    $db_password = "project";
+    $db_name = "SP";
+    $db_host = "localhost";

@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     // Make sure the email and key variables have values, else return user
     if (!isset($_POST['key']) || !isset($_POST['email'])) {
 		// Return to link generation page
-        header("Location: invite.php?errorCode=1");
+        header("Location: home.php?message=2");
     }
 
     //Make sure email is valid, else return user
@@ -41,4 +41,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     $content = $_POST['message']; //Retrieving content from text-area named message
     $message = (new Swift_Message('MJM Tax Services Invitation'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
     $result = $mailer->send($message);
-		header("Location: home.php");
+		header("Location: home.php?message=1");

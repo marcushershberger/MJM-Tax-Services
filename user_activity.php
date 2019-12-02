@@ -17,8 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+// This page retrieve the most recent activites of a specific user.
+// The user is specified by a POST variable (obj)
     $id = $_POST['obj'];
 
+    // Include database connection information
     include 'inc/conn.php';
 
     // Create a database connection.
@@ -29,14 +33,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     include 'inc/php_to_html_functions.php';
 
+    // SQL query to retrieve types of user activities
     $sqlActivityTypes = $conn->prepare("SELECT name FROM activity_types ORDER BY id ASC");
     $sqlActivityTypes->execute();
     $sqlActivityTypes->bind_result($name);
     $types = array();
+    // Store types in array
     while ($sqlActivityTypes->fetch()) {
       $types[] = $name;
     }
     $sqlActivityTypes->close();
+
+    // If user is specified, add a modifier to the query that retrieves the last ten log enries
     $modifier = $id == 0 ? "" : "WHERE user_id = ?";
     $query = "SELECT activity_type, date_time FROM activities $modifier ORDER BY date_time DESC LIMIT 10";
     $sqlRecent = $conn->prepare($query);
@@ -46,11 +54,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     $sqlRecent->execute();
     $sqlRecent->bind_result($activityType, $dateTime);
     $rows = array();
+    // Store the results in an array for use in a table
     while ($sqlRecent->fetch()) {
       $rows[] = array($id, $activityType, $dateTime);
     }
     $sqlRecent->close();
 
+    // Create a table of log entries
     $tableContents = "";
     foreach ($rows as $key => $value) {
       $sqlUsername = $conn->prepare("SELECT first_name, last_name FROM users WHERE id = ?");
@@ -63,4 +73,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       $tableContents .= tr($rowContents);
       $sqlUsername->close();
     }
+    // Output the table
     echo table($tableContents);

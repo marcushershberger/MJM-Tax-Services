@@ -18,27 +18,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
     session_start();
+    // If the user is not logged in, redirect
     if (!isset($_SESSION['USER'])) header("Location: login.php");
 
 ?>
 <html>
-<head>
+  <head>
     <title>Home</title>
     <script src="js/folder_view.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
-</head>
-<body>
-<?php
-    if ($_SESSION['ACCT_TYPE'] == 1) {
-        include 'inc/client_page.php';
-    }
-    else if ($_SESSION['ACCT_TYPE'] == 2){
-        include 'inc/admin_page.php';
-    }
-
-
-/* SESSION INFORMATION WILL RESIDE HERE */
-
-?>
-</body>
+  </head>
+  <body>
+    <?php include 'inc/header.php'; ?>
+    <div id="container">
+    <?php
+      // If the user is a client, include the client elements
+      // If the user is an admin, include the admin elements
+      if ($_SESSION['ACCT_TYPE'] == 1) {
+          include 'inc/client_page.php';
+      }
+      else if ($_SESSION['ACCT_TYPE'] == 2){
+          include 'inc/admin_page.php';
+      }
+      ?>
+    </div>
+    <div id="spacer"></div>
+    <?php include 'inc/footer.php'; ?>
+  </body>
 </html>

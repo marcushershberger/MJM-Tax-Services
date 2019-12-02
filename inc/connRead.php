@@ -17,8 +17,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    session_start();
-    // If user is not logged in, redirect to the login page
-    if (!isset($_SESSION['USER'])) header("Location: login.php");
-    // Otherwise, allow the user to attempt an upload.
-    include 'inc/uploadFile.php';
+    // Database information
+    $db_username = "read";
+    $db_password = "cis492";
+    $db_name = "SP";
+    $db_host = "localhost";

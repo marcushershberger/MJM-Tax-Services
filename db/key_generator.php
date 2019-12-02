@@ -17,32 +17,37 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    $data = json_decode($_POST["obj"]);
+// Make sure user is authorized to view files
+if (!isset($_SESSION['USER'])) header("Location: ./index.php");
+if ($_SESSION['ACCT_TYPE'] != 2) header("Location: ./index.php");
 
-    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $randString = "";
-    const STR_LEN = 8;
-    for ($i = 0; $i < STR_LEN; $i++) {
-        $index = rand(0, strlen($chars) - 1);
-        $randString .= $chars[$index];
-    }
+$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+$randString = "";
+const STR_LEN = 8;
+for ($i = 0; $i < STR_LEN; $i++) {
+    $index = rand(0, strlen($chars) - 1);
+    $randString .= $chars[$index];
+}
 
-    $type = (int)($data->_type);
+if (!isset($resetKey)) {
+  $data = json_decode($_POST['obj']);
+  $type = (int)($data->_type);
 
-    include('inc/conn.php');
-    $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
+  include('inc/conn.php');
+  $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
 
-    if ($connection->connect_error) {
-        die("Connection failed.");
-    }
+  if ($connection->connect_error) {
+      die("Connection failed.");
+  }
 
-    $used = 0;
-    $sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
-    $result = $connection->query($sql);
+  $used = 0;
+  $sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
+  $result = $connection->query($sql);
 
-    if ($result) {
-        echo $randString;
-    }
-    else {
-        echo "NONE";
-    }
+  if ($result) {
+      echo $randString;
+  }
+  else {
+      echo "NONE";
+  }
+}

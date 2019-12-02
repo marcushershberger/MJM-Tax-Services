@@ -18,17 +18,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
+// HTML content for listing all uploads of a specified user.
+// User is specified by a session variable (USER)
     include 'doc_file_path.php';
+    // Create table to hold the list
     $tableContents = tr(th("Files"));
-    $sqlUploads = $conn->prepare("SELECT file_name FROM file_uploads WHERE user = ?");
+    $sqlUploads = $conn->prepare("SELECT id, file_name FROM file_uploads WHERE user = ?");
     $sqlUploads->bind_param('i', $_SESSION['USER']);
-	$sqlUploads->execute();
-	$sqlUploads->bind_result($filename);
-	while ($sqlUploads->fetch()) {
-        $cell = td(a($filename, "deliverFile.php?file=$filename"));
+	  $sqlUploads->execute();
+	  $sqlUploads->bind_result($id, $filename);
+    // For each file that the user has uploaded...
+  	while ($sqlUploads->fetch()) {
+        // Create a row
+        $cell = td(a($filename, "deliverFile.php?id=$id"));
         $row = tr($cell);
+        // Append the current row to the table
         $tableContents .= $row;
-	}
-	echo table($tableContents);
+	  }
+    // Output the table
+	  echo table($tableContents);
 ?>

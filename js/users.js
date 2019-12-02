@@ -17,60 +17,76 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// These functions deal with AJAX calls for dynamic content changes
+// Functions that deal with the user list and file tables
+// Only available to admin users
 
-var user_id = 0;
+// Ask for confirmation before deleting
+function startDelete(div, userId) {
+  div.innerHTML = "Confirm";
+  div.onclick = function() { deleteUser(div, userId); };
+}
 
-// Get files for a specified user (id)
-function getFiles(id) {
-  user_id = id;
-  getActivities(id);
+// AJAX call to delete the specified user (userId)
+function deleteUser(div, userId) {
   var request = new XMLHttpRequest();
-  // If id is 0, get all user folders instead of files
-  var obj = "obj=" + id.toString();
-  var url = id == 0 ? "folder_view.php" : "file_view.php";
+  var obj = "obj=" + userId.toString();
+  var url = "deleteUser.php"
   request.open("POST", url, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   request.onreadystatechange = function() {
       if (request.readyState == 4 && request.status == 200) {
-          var return_data = request.responseText;
-          document.getElementById("files").innerHTML = return_data;
+          div.innerHTML = "Deleted";
+          div.style.backgroundColor = "gray";
+          div.onclick = function() {};
+          getFiles(0);
       }
   }
   request.send(obj);
 }
 
-// Get year folders for a specified user (id)
-function getYearFolders(id) {
-  getActivities(id);
-  user_id = id;
+// Ask for confirmation before deleting file
+function startDeleteFile(button, fileId) {
+  button.style.backgroundColor = "#CD6053";
+  button.onclick = function() { deleteFile(fileId); };
+}
+
+// AJAX call to delete specified file (fileId)
+function deleteFile(fileId) {
   var request = new XMLHttpRequest();
-  var obj = "obj=" + id.toString();
-  var url = "year_folder_view.php";
+  var obj = "obj=" + fileId.toString();
+  var url = "deleteFile.php"
   request.open("POST", url, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   request.onreadystatechange = function() {
       if (request.readyState == 4 && request.status == 200) {
-          var return_data = request.responseText;
-          document.getElementById("files").innerHTML = return_data;
+          getFiles(user_id);
       }
   }
   request.send(obj);
 }
 
-// Get recent activites log for specified user
-function getActivities(id) {
+// AJAX call to retrieve information about specified user (userId)
+function displayInfo(userId) {
   var request = new XMLHttpRequest();
-  var obj = "obj=" + id.toString();
-  // If id is 0, get recent activity log for all users.
-  var url = id == 0 ? "user_activity_all.php" : "user_activity.php";
+  var obj = "obj=" + userId.toString();
+  var url = "userInfo.php"
   request.open("POST", url, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   request.onreadystatechange = function() {
       if (request.readyState == 4 && request.status == 200) {
-          var return_data = request.responseText;
-          document.getElementById("activity").innerHTML = return_data;
+          var holder = document.createElement("div");
+          holder.className = "infoHolder";
+          holder.id = "holder";
+          holder.innerHTML = request.responseText;
+          document.body.appendChild(holder);
       }
   }
   request.send(obj);
+}
+
+// Close the information box when the X is clicked
+function removeInfo() {
+  var holder = document.getElementById("holder");
+  holder.innerHTML = "";
+  holder.parentNode.removeChild(holder);
 }

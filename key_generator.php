@@ -20,9 +20,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
     session_start();
+    // If user is not logged in, redirect to login page.
     if (!isset($_SESSION['USER'])) header("Location: login.php");
     if (isset($_SESSION['USER'])) {
         if ($_SESSION['ACCT_TYPE'] == 1) header("Location: home.php");
+        // User must be an admin for this script to work
         else if ($_SESSION['ACCT_TYPE'] == 2) include 'db/key_generator.php';
     }
 ?>

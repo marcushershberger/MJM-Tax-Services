@@ -17,9 +17,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+// This script outputs a table of folders represent users.
     $connection = "";
     if (isset($_POST['obj'])) {
+      session_start();
+      // Make sure user is authorized to view files
+      if (!isset($_SESSION['USER'])) header("Location: ./index.php");
+      if ($_SESSION['ACCT_TYPE'] != 2) header("Location: ./index.php");
+
+      // Include functions for HTML output.
       include 'inc/php_to_html_functions.php';
+
+      // Include database connection information.
       include 'inc/conn.php';
       $connection = mysqli_connect($db_host, $db_username, $db_password, $db_name);
       if (mysqli_connect_errno()) {
@@ -30,17 +40,29 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       $connection = $conn;
     }
 
+    // SQL query to retrieve information about users
     $sqlUserList = $connection->prepare("SELECT id, username, first_name, last_name FROM users");
     $sqlUserList->execute();
     $sqlUserList->bind_result($id, $username, $first_name, $last_name);
+
+    // Current column of table
     $column = 0;
+
+    // Number of columns the table should hold
     $COLUMNS = 4;
+
+    // Create a table to hold each user folder
     $tableContents = "";
     $rowContents = "";
+
+    // For each user...
     while ($sqlUserList->fetch()) {
+      // Create a table cell
       $func = "getYearFolders($id)";
-      $rowContents .= tdClickable(div(img("folder.png", " ", " ", "width:100%"), " ", " ", "height:100px;width:100px").$first_name." ".$last_name, " ", " ", " ", $func);
+      // Append the current cell to the current row
+      $rowContents .= tdClickable(div(img("folder.png", " ", " ", "width:100%"), " ", " ", "height:100px;width:100px").$first_name." ".$last_name, "folder", " ", " ", $func);
       if ($column + 1 == $COLUMNS) {
+        // Append the current row to the table
         $column = 0;
         $tableContents .= tr($rowContents);
         $rowContents = "";
@@ -49,5 +71,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $column++;
       }
     }
+    if ($rowContents != "") {
+      // Append any leftover cells to the table
+      $tableContents .= tr($rowContents);
+    }
     $sqlUserList->close();
-    echo isset($_POST['obj']) ? table($tableContents) : div(table($tableContents), " ", "files");
+
+    // Output the table of folders
+    echo isset($_POST['obj']) ? table($tableContents, "view") : div(table($tableContents, "view"), " ", "files");

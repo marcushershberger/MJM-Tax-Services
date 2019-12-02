@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-//if (!isset($_POST['email'])) header("Location: index.php");
+$resetKey = true;
 include "key_generator.php";
 
 include('../inc/conn.php');
@@ -27,25 +27,28 @@ $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
 if ($connection->connect_error) {
     die("Connection failed.");
 }
-
+if (!isset($_POST['email'])) header ("Location: ./index.php");
 $user_email = $_POST['email'];
 
+// SQL query to get the user with the specified email address
 $sql_userid = $connection->prepare("SELECT id FROM users WHERE email_addr = ?");
 $sql_userid->bind_param("s", $user_email);
 $sql_userid->execute();
 $sql_userid->bind_result($id);
 
+// If there exists a user with the specified email
 if ($sql_userid->fetch()) {
     $sql_userid->close();
     $used = 0;
+    // Insert generated password reset key into databse
     $sql = "INSERT INTO pw_reset_keys (reset_key, account_id, used) VALUES (?, ?, ?)";
     $sql_insert = $connection->prepare($sql);
     $sql_insert->bind_param("sii", $randString, $id, $used);
     $sql_insert->execute();
 
     include "../inc/emailKeyReset.php";
-    header("Location: reset_message.php");
+    header("Location: ../reset_message.php");
 
 } else {
-    header("Location: generate_reset_key.php?errorCode=2");
+    header("Location: ../generate_reset_key.php?errorCode=2");
 }

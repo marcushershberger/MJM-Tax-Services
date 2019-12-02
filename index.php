@@ -17,7 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+// Landing page
+
+
   session_start();
+  // If the user is already logged in, redirect to the home page
   if (isset($_SESSION['USER']) || isset($_SESSION['ACCT_TYPE'])) {
     header("Location: home.php");
   }
@@ -25,12 +30,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
         <title>MJM</title>
     </head>
     <body>
-	<?php include 'inc/php_to_html_functions.php'; if (isset($_GET['logout']) && $_GET['logout']) echo p("You have been logged out."); ?>
-        <a href="signup.php">Sign Up</a>
-        <a href="login.php">Log In</a>
+	      <?php include 'inc/header.php'; if (isset($_GET['logout']) && $_GET['logout']) echo p("You have been logged out."); ?>
+      <div id="container">
+        <h1>Welcome to the tax services of Matthew J. Mize</h1>
+        <a href="signup.php">
+          <button class="mainLinkBtn">Sign Up</button>
+        </a><br>
+        <a href="login.php">
+          <button class="mainLinkBtn">Log In</button>
+        </a>
+      </div>
+      <div id="spacer"></div>
+      <?php include 'inc/footer.php'; ?>
     </body>
 </html>

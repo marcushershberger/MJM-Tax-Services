@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-include "php_to_html_functions.php";
+// Simple header that should appear on each page.
 
-echo p("An email will be sent with your reset key.");
+  require_once('inc/php_to_html_functions.php');
+  echo "<link rel='stylesheet' type='text/css' href='css/main.css'/>";
+  echo div("MJM Tax Services".a("Home", "./index.php", " ", "homeLink"), " ", "headerDiv");

@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+    // Include database connection information
     include 'conn.php';
 
     // Create a database connection.
@@ -26,13 +27,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         echo p("Failed to connect: " . mysqli_connect_errno());
     }
 
-    include 'php_to_html_functions.php';
-    include 'logout_button.php';
-    echo br().br();
-    echo p("Welcome Admin");
+    include_once('php_to_html_functions.php');
 
+    include 'logout_button.php';
+    // Handle cross-page messages
+    if (isset($_GET['message'])) {
+      $msg = (int)$_GET['message'];
+      if ($msg == 1) {
+        echo p("Invitation successfully sent.");
+      }
+      else if ($msg == 2) {
+        echo p("Something went wrong. Invitation not sent.");
+      }
+    }
+    echo br().br();
+    echo p("Welcome! (Admin Account)");
+    echo h1("File Browser");
     // Admin information included here
     include 'folder_view.php';
     include 'user_activity_all.php';
-    include 'invite.php';
+    include 'inc/invite.php';
     include 'keys_list.php';
+    include 'users_list.php';
+    echo br();

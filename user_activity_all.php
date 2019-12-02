@@ -17,9 +17,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    echo h1("Recent User Activity");
 
-    $sqlActivityTypes = $conn->prepare("SELECT name FROM activity_types ORDER BY id ASC");
+// This script outputs the most recent activity of all users
+    $connection = "";
+    if (isset($_POST['obj'])) {
+      include 'inc/php_to_html_functions.php';
+      // Include database connection information
+      include 'inc/conn.php';
+      $connection = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+      if (mysqli_connect_errno()) {
+          echo p("Failed to connect: " . mysqli_connect_errno());
+      }
+    }
+    else {
+      echo h1("Recent User Activity");
+      $connection = $conn;
+    }
+
+    // SQL query that retrieves the activity types
+    $sqlActivityTypes = $connection->prepare("SELECT name FROM activity_types ORDER BY id ASC");
     $sqlActivityTypes->execute();
     $sqlActivityTypes->bind_result($name);
     $types = array();
@@ -28,7 +44,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
     $sqlActivityTypes->close();
 
-    $sqlRecent = $conn->prepare("SELECT user_id, activity_type, date_time FROM activities ORDER BY date_time DESC LIMIT 10");
+    // SQL query that retrieves the last ten log entries
+    $LIMIT = 10;
+    $sqlRecent = $connection->prepare("SELECT user_id, activity_type, date_time FROM activities ORDER BY date_time DESC LIMIT $LIMIT");
     $sqlRecent->execute();
     $sqlRecent->bind_result($userId, $activityType, $dateTime);
     $rows = array();
@@ -37,9 +55,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
     $sqlRecent->close();
 
+    // Create a table from the results of the query
     $tableContents = "";
     foreach ($rows as $key => $value) {
-      $sqlUsername = $conn->prepare("SELECT first_name, last_name FROM users WHERE id = ?");
+      $sqlUsername = $connection->prepare("SELECT first_name, last_name FROM users WHERE id = ?");
       $sqlUsername->bind_param("i", $value[0]);
       $sqlUsername->execute();
       $sqlUsername->bind_result($fname, $lname);
@@ -49,4 +68,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       $tableContents .= tr($rowContents);
       $sqlUsername->close();
     }
+
+    // Output the table in a div element
     echo div(table($tableContents), " ", "activity");

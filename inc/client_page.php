@@ -16,17 +16,23 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/    
-    include 'php_to_html_functions.php';
+*/
+// This page contains elements needed by client users_list
+
+    include_once('php_to_html_functions.php');
+
+    // Include database connection information
     include('inc/conn.php');
     include 'logout_button.php';
-    
-    echo p("Welcome Client");
+
+    echo p("Welcome! (Client Account)");
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name); // Create a connection to the database.
 
     // Make sure the database connection was successful.
     if (mysqli_connect_errno()) {
         echo p("Failed to connect: " . mysqli_connect_errno());
     }
+
+    // Include elements needed by client users
     include 'file_upload_input.php';
     include 'user_file_list.php';
