@@ -17,32 +17,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    $data = json_decode($_POST["obj"]);
 
-    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $randString = "";
-    const STR_LEN = 8;
-    for ($i = 0; $i < STR_LEN; $i++) {
-        $index = rand(0, strlen($chars) - 1);
-        $randString .= $chars[$index];
+
+    session_start();
+    // If user is not logged in, redirect to login page.
+    if (!isset($_SESSION['USER'])) header("Location: login.php");
+    if (isset($_SESSION['USER'])) {
+        if ($_SESSION['ACCT_TYPE'] == 1) header("Location: home.php");
+        // User must be an admin for this script to work
+        else if ($_SESSION['ACCT_TYPE'] == 2) include 'db/key_generator.php';
     }
-
-    $type = (int)($data->_type);
-
-    include('inc/conn.php');
-    $connection = new mysqli($db_host, $db_username, $db_password, $db_name);
-
-    if ($connection->connect_error) {
-        die("Connection failed.");
-    }
-
-    $used = 0;
-    $sql = "INSERT INTO registration_keys (reg_key, type, used) VALUES ('$randString', $type, $used);";
-    $result = $connection->query($sql);
-
-    if ($result) {
-        echo $randString;
-    }
-    else {
-        echo "NONE";
-    }
+?>

@@ -1,0 +1,325 @@
+/*
+MJM Tax Services
+This software is a management system for tax-related documents, used by tax consultants and their clients.
+Copyright (C) 2019 Marcus Hershberger and Tyler Snodderly
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+@font-face {
+  font-family: Gotham;
+  src: url(Gotham-Book.ttf);
+}
+
+@font-face {
+  font-family: GothamBold;
+  src: url(Gotham-Bold.ttf);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+td {
+  width: 200px;
+}
+
+#files {
+  height: 500px;
+  overflow: scroll;
+}
+
+form {
+  margin: auto;
+}
+
+button {
+  outline: none;
+  background-color: #2D3458;
+  color: white;
+  border: none;
+  font-family: Gotham;
+  font-size: 1.2em;
+  box-shadow: 1px 1px 1px black;
+}
+
+input[type=submit] {
+  outline: none;
+  background-color: #2D3458;
+  color: white;
+  border: none;
+  box-shadow: 1px 1px 1px black;
+  font-size: 1.2em;
+}
+
+input[type=text], input[type=number], input[type=password] {
+  font-family: Gotham;
+  font-size: 1.2em;
+  width: 60%;
+}
+
+input[type=text], input[type=password], input[type=number] {
+  margin-top: 15px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+input[type=submit] {
+    margin-top: 15px;
+    font-family: Gotham;
+}
+
+input[type=file] {
+  font-family: Gotham;
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
+p {
+  font-family: Gotham;
+  font-size: 1.3em;
+}
+
+h1 {
+  font-family: Gotham;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: Gotham;
+}
+
+#container {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+table {
+  font-family: Gotham;
+  font-size: 1.2em;
+}
+
+button:hover, input[type=submit]:hover {
+  cursor: pointer;
+}
+
+a, a:visited {
+    font-family: Gotham;
+    font-size: 1.3em;
+    text-decoration: none;
+    color: black;
+
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+select {
+  font-family: Gotham;
+  font-size: 1.2em;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.state {
+  width: 20%;
+}
+
+#headerDiv {
+  width: 101%;
+  height: 100px;
+  padding-top: 30px;
+  margin: auto;
+  margin-top: -8px;
+  background-color: #2D3458;
+  color: white;
+  margin-left: -1%;
+  font-family: GothamBold;
+  font-size: 4em;
+  padding-left: 5%;
+}
+
+#homeLink {
+  padding-top: 20px;
+  font-size: .4em;
+  color: white;
+  position: absolute;
+  right: 50px;
+}
+
+#footerDiv {
+  margin-top: 130px;
+  position: fixed;
+  bottom: 0;
+  width: 102%;
+  height: 50px;
+  padding-top: 15px;
+  margin: auto;
+  margin-bottom: -5px;
+  background-color: #2D3458;
+  color: white;
+  margin-left: -1%;
+  font-family: GothamBold;
+  font-size: 2em;
+  text-align: center;
+}
+
+#spacer {
+  height: 75px;
+  width: 100%;
+}
+
+.nameList {
+  background-color: white;
+  color: #2D3458;
+  box-shadow: none;
+}
+
+#holder {
+  width: 100%;
+  height: 90vh;
+  top: 0px;
+  box-shadow: 5px 5px 5px black;
+  z-index: 2;
+  position: fixed;
+  margin-top: 100px;
+  background-color: white;
+  margin: auto;
+}
+
+.userInfo {
+  font-size: 2em;
+  border-collapse: collapse;
+}
+
+.userInfo td {
+  border-bottom: 3px solid #2D3458;
+}
+
+.userInfo td:nth-child(1) {
+  text-align: left;
+}
+
+.userInfo td:nth-child(2) {
+  text-align: right;
+}
+
+
+textarea {
+  font-family: Gotham;
+  font-size: 1.1em;
+}
+
+td {
+  text-align: center;
+}
+
+.folder {
+  text-align: left;
+}
+
+.view {
+  margin: 0;
+}
+
+table {
+  margin: auto;
+}
+
+.mainLinkBtn {
+  display: block;
+  width: 150px;
+  font-size: 1.5em;
+  height: 85px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+label {
+  font-family: Gotham;
+}
+
+.blueText {
+  color : #2D3458;
+}
+
+.checkContainer {
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkContainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkContainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkContainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

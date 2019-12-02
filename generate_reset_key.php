@@ -18,7 +18,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+// Users can request a password reset key that will be sent to the user-specified email address.
 
+// Handle error messages
 $errorMsg = "";
 if (isset($_GET['errorCode'])) {
     $err = $_GET['errorCode'];
@@ -36,14 +38,21 @@ if (isset($_GET['errorCode'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="../key_gen.js"></script>
+    <script type="text/javascript" src="js/key_gen_reset.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>MJM</title>
 </head>
 <body>
-<form action="key_generator_reset.php" method="post">
-    <input type="text" id="email" name="email" placeholder="Email"><br>
-    <p id='error'><?php echo $errorMsg; ?></p>
-    <input type="submit" value="Email Key" id="emailBtn">
-</form>
+  <?php include 'inc/header.php'; ?>
+  <div id="container">
+    <h1>Reset Password</h1>
+    <form action="db/key_generator_reset.php" method="post">
+        <input type="text" id="email" name="email" placeholder="Email"><br>
+        <p id='error'><?php echo $errorMsg; ?></p>
+        <input type="submit" value="Email Key" id="emailBtn">
+    </form>
+  </div>
+  <div id="spacer"></div>
+  <?php include 'inc/footer.php'; ?>
 </body>
 </html>

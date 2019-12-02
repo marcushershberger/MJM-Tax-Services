@@ -18,8 +18,38 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-	// Destroy session variables.
+
+//This script will log out the current user. If there is no current login, the user will be redirected
+
+	// Include database connection information
+	include 'inc/conn.php';
+	$conn = new mysqli($db_host, $db_username, $db_password, $db_name);
+
+	if ($conn->connect_error) {
+		die("Connection Error".$conn->connect_error);
+	}
+
 	session_start();
+	// If user is not logged in, redirect
+	if (!isset($_SESSION['USER'])) header ("Location: ./index.php");
+
+	//SQL query to get id of activity type 'logout'
+	$sqlActivityType = $conn->prepare("SELECT id FROM activity_types WHERE name = 'Logout'");
+	$sqlActivityType->execute();
+	$sqlActivityType->bind_result($activityType);
+	$sqlActivityType->fetch();
+	$sqlActivityType->close();
+
+	// Get current datetime
+	$dateTime = date("Y-m-d H:i:s");
+
+	// SQL query to log an instance of the user logging out.
+	$sqlActivity = $conn->prepare("INSERT INTO activities (user_id, activity_type, date_time) VALUES (?,?,?)");
+	$sqlActivity->bind_param("iis", $_SESSION['USER'], $activityType, $dateTime);
+	$sqlActivity->execute();
+	$sqlActivity->close();
+
+	// Destroy session variables.
 	session_destroy();
 	// Redirect to the landing page.
 	header("Location: index.php?logout=1");

@@ -17,32 +17,50 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+// This page is a login page for existing users
+
+  session_start();
+  // If user is logged in, redirect to the home page
+  if (isset($_SESSION['USER']) || isset($_SESSION['ACCT_TYPE'])) {
+    header("Location: home.php");
+  }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <script type="text/javascript" src="main.js"></script>
     <title>MJM</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 <body>
-    <form action="db/auth_user.php" method="post">
-        <input type="text" id="username" name="user" placeholder="Username"><br>
-        <input type="password" id="pass" name="pass" placeholder="Password"><br>
-        <input type="submit" id="submit" value="Log In">
-    </form>
-    <?php
-        if (isset($_GET["error"])) {
-            $error = $_GET["error"];
-            include('inc/php_to_html_functions.php');
-            if ($error == 1) {
-                echo p("Password is incorrect");
-            }
-            elseif ($error == 2) {
-                echo p("That user does not exist");
-            }
+    <?php include 'inc/header.php'; ?>
+    <div id="container">
+        <form action="db/auth_user.php" method="post">
+            <input type="text" id="username" name="user" placeholder="Username"><br>
+            <input type="password" id="pass" name="pass" placeholder="Password"><br>
+            <input type="submit" id="submit" value="Log In">
+        </form>
+        <?php
+            // Handle error messages
+            if (isset($_GET["error"])) {
+                $error = $_GET["error"];
+                if ($error == 1) {
+                    echo p("Invalid login");
+                }
+                elseif ($error == 2) {
+                    echo p("That user does not exist");
+                }
+                elseif ($error == 3) {
+                    echo p("You have to many failed login attempts.", 'failedLogin', 'failedLogin');
+                }
 
-        }
-    ?>
-    <a href="generate_reset_key.php" id="pass_reset">reset password</a>
+            }
+        ?>
+        <br>
+        <a href="generate_reset_key.php" id="pass_reset">Reset Password</a>
+      </div>
+      <div id="spacer"></div>
+      <?php include 'inc/footer.php'; ?>
 </body>
 </html>

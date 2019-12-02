@@ -16,21 +16,24 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/ 
+*/
     echo h1("Registration Links");
     $linkTableContents = tr(th("Links").th("Type").th("Status"));
-    
+
     // Query the database for a list of registration keys that have been generated. This includes the key, the type, and its status.
     $sqlLinks = $conn->prepare("SELECT reg_key, type, used FROM registration_keys ORDER BY id ASC");
     $sqlLinks->execute();
     $sqlLinks->bind_result($regKey, $type, $used);
+    // For each registration key...
     while ($sqlLinks->fetch()) {
         $keyCell = td($regKey);
         $typeCell = td($type == 0 ? "Client" : "Admin");
         $usedCell = td($used == 1 ? "Used" : "Valid");
+        // Append cells to row
         $row = tr($keyCell.$typeCell.$usedCell);
+        // Append row to table
         $linkTableContents .= $row;
     }
-    
+
     // Echo the table.
     echo table($linkTableContents);

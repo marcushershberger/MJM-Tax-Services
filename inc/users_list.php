@@ -16,17 +16,23 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/ 
+*/
+
+// HTML content for listing users
+// Included actions are deleting users and viewing user information
+
     echo h1("Users");
-    
+    echo script("js/users.js");
     // Query the database for a list of users and their count of uploaded documents.
     $usersTableContents = tr(td("User").td("Uploads"));
     $sqlUsers = $conn->prepare("SELECT id, first_name, last_name FROM users");
     $sqlUsers->execute();
     $sqlUsers->bind_result($id, $firstname, $lastname);
     $sqlUsers->store_result(); // Needed to make sure that calls are not out of sync.
+
+    // For each user...
     while ($sqlUsers->fetch()) {
-        // Select the count of uploades for each user.
+        // Select the count of uploads for each user.
         $sqlDocs = $conn->prepare("SELECT COUNT(*) FROM file_uploads WHERE user = ?");
         $sqlDocs->bind_param("i", $id);
         $sqlDocs->execute();
@@ -34,12 +40,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         $sqlDocs->fetch();
         $sqlDocs->close();
         $conn->next_result();
-        $nameCell = td("$firstname $lastname");
+        // Create cells for the user row
+        $nameCell = td(button("$firstname $lastname", "displayInfo($id)", "nameList"));
         $uploadsCell = td($count);
-        $row = tr($nameCell.$uploadsCell);
+        $buttonCell = td(button("Delete User", "startDelete(this, $id)", "deleteBtn"));
+        // Append the cells to the current row
+        $row = tr($nameCell.$uploadsCell.$buttonCell);
+        // Append the current row to the table.
         $usersTableContents .= $row;
     }
-    
+
     // Echo the table of upload counts.
     echo table($usersTableContents);
-    

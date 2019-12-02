@@ -33,25 +33,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         }
         $errorMsg = $err;
     }
+
+    echo h1("Invite a Client");
+    echo script("js/key_gen.js");
+    $clientOpt = option("Client", 1);
+    $adminOpt = option("Admin", 2);
+    echo select($clientOpt.$adminOpt, " ", "accountSelection");
+    echo button("Generate", "generateKeyRequest()", " ", "generateKeyBtn");
+    $inputKey = input("text", "key", " ", "Key", " ","regKey", "key");
+    $inputEmail = input("text", "email", " ", "Email", " ", "email");
+    $br = br();
+    $textArea = textArea("message", "10", "30", " ", "message");
+    $p = p($errorMsg, " ", "error");
+    echo form($inputKey.$inputEmail.$br.$textArea.$p, "emailInvite.php");
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <script type="text/javascript" src="key_gen.js"></script>
-        <title>MJM</title>
-    </head>
-    <body>
-        <select id="accountSelection">
-            <option value="1">Client</option>
-            <option value="2">Admin</option>
-        </select>
-        <button onclick="generateKeyRequest()" id="generateKeyBtn">Generate</button>
-        <form action="emailInvite.php" method="post">
-            <input type="text" id="key" name="key" class="regKey"><br>
-            <input type="text" id="email" name="email" placeholder="Email"><br>
-            <textarea id="message" name="message" rows="10" cols="30"></textarea>
-            <p id='error'><?php echo $errorMsg; ?></p>
-            <input type="submit" value="Email Key" id="emailBtn">
-        </form>
-    </body>
-</html>

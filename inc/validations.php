@@ -1,4 +1,24 @@
 <?php
+/*
+MJM Tax Services
+This software is a management system for tax-related documents, used by tax consultants and their clients.
+Copyright (C) 2019 Marcus Hershberger and Tyler Snodderly
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+// These functions are used to validate user information input
 
     const USERNAME_MIN = 6;
     const USERNAME_MAX = 20;
@@ -19,6 +39,7 @@
     const ADDRESS_MAX = 50;
     const INVALID_PASS_CHARS = array('"', "'","=", ";");
 
+    // Make sure all characters are valid
     function noInvalidChars($str) {
         foreach (INVALID_PASS_CHARS as $char) {
             if (substr_count($char, $str) > 0) {
@@ -27,12 +48,14 @@
         }
         return true;
     }
-    
+
+    // Make sure username fits the requirements
     function validUsername($username_) {
         $length = strlen($username_);
         return $length >= USERNAME_MIN && $length <= USERNAME_MAX && noInvalidChars($username_);
     }
-    
+
+    // Make sure email is in a valid format
     function validEmail($email_) {
         $length = strlen($email_);
         $validLength = $length >= EMAIL_MIN && $length <= EMAIL_MAX; //
@@ -49,25 +72,29 @@
         $tlDomain = strlen($domainList[count($domainList) - 1]) > 0; //
         return $validLength && $validUserLength && $amperstat && $period && $tlDomain && noInvalidChars($email_);
     }
-    
+
+    // Make sure the password fits the format
     function validPassword($password_) {
         $length = strlen($password_);
         $validLength = $length >= PASS_MIN && $length <= PASS_MAX;
         return $validLength && noInvalidChars($password_);
     }
 
+    // Make sure phone number is in a valid format
     function validPhone($phone_) {
- 	$length = strlen($phone_);
-	$validLength = $length >= PHONE_MIN && $length <= PHONE_MAX;
-	return $validLength && noInvalidChars($phone_);
+ 	     $length = strlen($phone_);
+	     $validLength = $length >= PHONE_MIN && $length <= PHONE_MAX;
+	     return $validLength && noInvalidChars($phone_);
     }
 
+    // Make sure street address is in a valid format
     function validAddress($address_) {
-	$length = strlen($address_);
-	$validLength = $length >= ADRESS_MIN && $length <= ADDRESS_MAX;
-	return $validLength && noInvalidChars($address_);
+	     $length = strlen($address_);
+	     $validLength = $length >= ADRESS_MIN && $length <= ADDRESS_MAX;
+	     return $validLength && noInvalidChars($address_);
     }
-    
+
+    // Make sure both supplied passwords are the same
     function passwordMatch($pass1, $pass2) {
         return $pass1 == $pass2;
     }

@@ -17,19 +17,36 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-    include 'php_to_html_functions.php';
+
+    // Include database connection information
     include 'conn.php';
-    include 'logout_button.php';
-    
-    echo p("Welcome Admin");
-    
+
     // Create a database connection.
     $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name);
-    
     if (mysqli_connect_errno()) {
         echo p("Failed to connect: " . mysqli_connect_errno());
     }
+
+    include_once('php_to_html_functions.php');
+
+    include 'logout_button.php';
+    // Handle cross-page messages
+    if (isset($_GET['message'])) {
+      $msg = (int)$_GET['message'];
+      if ($msg == 1) {
+        echo p("Invitation successfully sent.");
+      }
+      else if ($msg == 2) {
+        echo p("Something went wrong. Invitation not sent.");
+      }
+    }
+    echo br().br();
+    echo p("Welcome! (Admin Account)");
+    echo h1("File Browser");
     // Admin information included here
-    include 'all_file_list.php';
+    include 'folder_view.php';
+    include 'user_activity_all.php';
+    include 'inc/invite.php';
     include 'keys_list.php';
     include 'users_list.php';
+    echo br();

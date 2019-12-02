@@ -17,27 +17,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-	require_once './vendor/autoload.php';
-    include 'inc/validations.php'; // Needed for valid email check
-    include 'inc/mail_vars.php';
-    
-    // Make sure the email and key variables have values, else return user
-    if (!isset($_POST['key']) || !isset($_POST['email'])) {
-		// Return to link generation page
-        header("Location: invite.php?errorCode=1");
+
+
+    session_start();
+    // Check that user is authorized to call this script
+    if (!isset($_SESSION['USER'])) header("Location: login.php");
+    if (isset($_SESSION['USER'])) {
+        if ($_SESSION['ACCT_TYPE'] == 1) header("Location: home.php");
+        else if ($_SESSION['ACCT_TYPE'] == 2) include 'inc/emailInvite.php';
     }
-    
-    //Make sure email is valid, else return user
-    if (!validEmail($_POST['email'])) {
-        // Return to link generation page
-        header("Location: invite.php?errorCode=2");
-    }
-    
-    $email = $_POST['email'];
-    $key = $_POST['key'];
-    
-    // Create new email message via SwiftMailer library
-    $recipient = $email;
-    $content = $_POST['message']; //Retrieving content from text-area named message
-    $message = (new Swift_Message('MJM Tax Services Invitation'))->setFrom(['testing.mjm.services@gmail.com' => 'MJM Tax Services'])->setTo(["$recipient" => 'Guest'])->setBody("$content");
-    $result = $mailer->send($message);
+?>
