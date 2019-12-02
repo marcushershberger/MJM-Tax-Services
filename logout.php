@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+
 //This script will log out the current user. If there is no current login, the user will be redirected
 
 	// Include database connection information
@@ -50,4 +51,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 	// Destroy session variables.
 	session_destroy();
+	// Redirect to the landing page.
 	header("Location: index.php?logout=1");
